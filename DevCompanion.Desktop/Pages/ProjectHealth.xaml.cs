@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DevCompanion.Desktop
+namespace DevCompanion.Desktop.Pages
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for ProjectHealth.xaml
 	/// </summary>
-	public partial class MainWindow : NavigationWindow
+	public partial class ProjectHealth : Page
 	{
-		public MainWindow()
+		public ProjectHealth()
 		{
 			InitializeComponent();
 		}
