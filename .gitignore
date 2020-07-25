@@ -1,0 +1,9 @@
+v16
+.vs
+*[Nn][Cc][Rr][Uu][Nn][Cc][Hh]*
+*.cache
+*.user
+*.dll
+*.exe
+bin
+obj
