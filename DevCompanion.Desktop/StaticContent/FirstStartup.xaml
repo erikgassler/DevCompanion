@@ -16,6 +16,10 @@
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">What are Blueprints you ask?</TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Well, they are the name we give to any collection of scripts, configurations, documentation, and solution references.</TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">You can have multiple Blueprints to help you keep track of your various projects separately. But only 1 Blueprint can be loaded at a time.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">When creating a new Blueprint, you will have the option of saving it locally, or saving to the Cloud.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Saving to the Cloud is recommended so you can easily access from multiple computers, share with your Team, as well as stay synced when any changes are made from another device or team member.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
 	</DockPanel>
