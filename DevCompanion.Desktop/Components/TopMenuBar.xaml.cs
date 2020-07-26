@@ -13,16 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DevCompanion.Desktop.Pages
+namespace DevCompanion.Desktop.Components
 {
 	/// <summary>
-	/// Interaction logic for About.xaml
+	/// Interaction logic for TopMenuBar.xaml
 	/// </summary>
-	public partial class About : Page
+	public partial class TopMenuBar : UserControl
 	{
-		public About()
+		public TopMenuBar()
 		{
 			InitializeComponent();
+		}
+
+		private void MenuItem_ClickExit(object sender, RoutedEventArgs e)
+		{
+			Application.Current.MainWindow.Close();
 		}
 	}
 }

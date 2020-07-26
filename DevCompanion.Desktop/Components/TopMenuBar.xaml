@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="DevCompanion.Desktop.Components.TopMenuBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DevCompanion.Desktop.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="500">
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_Projects">
+				<MenuItem Header="_New Project" />
+				<MenuItem Header="_Open Project" />
+				<MenuItem Header="_Save Project" />
+				<MenuItem Header="_Sync Project" />
+				<Separator />
+				<MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
+			</MenuItem>
+			<MenuItem Header="_Settings">
+				<MenuItem Header="_Projects">
+					<MenuItem Header="_Enable Azure Auto Sync" IsCheckable="True" IsChecked="True" />
+				</MenuItem>
+			</MenuItem>
+		</Menu>
+	</DockPanel>
+</UserControl>
