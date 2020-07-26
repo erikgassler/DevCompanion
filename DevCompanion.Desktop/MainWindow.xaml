@@ -8,17 +8,14 @@
 	mc:Ignorable="d"
 	Title="Dev Companion" Height="350" Width="500"
 	WindowStyle="SingleBorderWindow" Icon="/Logo_64.png"
+		SizeToContent="Manual"
 	>
-	<Grid Margin="0">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<DockPanel>
+	<DockPanel LastChildFill="True">
+		<DockPanel DockPanel.Dock="Top">
 			<components:TopMenuBar />
 		</DockPanel>
-		<DockPanel>
-			
+		<DockPanel x:Name="MainContentContainer" DockPanel.Dock="Top">
+
 		</DockPanel>
-	</Grid>
+	</DockPanel>
 </Window>

@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="DevCompanion.Desktop.StaticContent.FirstStartup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DevCompanion.Desktop.StaticContent"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="400">
+	<DockPanel Margin="10" LastChildFill="True" Width="Auto">
+		<TextBlock DockPanel.Dock="Top" FontSize="16" TextWrapping="WrapWithOverflow" Padding="5px">
+			Welcome to Dev Companion!
+		</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">
+			You are seeing this screen either because this is your first time loading this program, or you do not have any Blueprints created yet.
+		</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">What are Blueprints you ask?</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Well, they are the name we give to any collection of scripts, configurations, documentation, and solution references.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">You can have multiple Blueprints to help you keep track of your various projects separately. But only 1 Blueprint can be loaded at a time.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
+	</DockPanel>
+</UserControl>

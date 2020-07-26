@@ -1,4 +1,5 @@
-﻿using DevCompanion.Service;
+﻿using DevCompanion.Desktop.StaticContent;
+using DevCompanion.Service;
 using DevCompanion.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -28,6 +30,13 @@ namespace DevCompanion.Desktop
 		{
 			InitializeComponent();
 			DesktopService = Startup.GetService<IDesktopService>();
+			AttachStartupContent();
+		}
+
+		private void AttachStartupContent()
+		{
+			FirstStartup startup = new FirstStartup();
+			MainContentContainer.Children.Add(startup);
 		}
 
 
