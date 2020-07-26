@@ -14,8 +14,6 @@
 		<DockPanel DockPanel.Dock="Top">
 			<components:TopMenuBar />
 		</DockPanel>
-		<DockPanel x:Name="MainContentContainer" DockPanel.Dock="Top">
-
-		</DockPanel>
+		<DockPanel x:Name="MainContentContainer" DockPanel.Dock="Top" />
 	</DockPanel>
 </Window>

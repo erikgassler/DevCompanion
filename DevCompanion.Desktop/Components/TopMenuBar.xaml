@@ -8,7 +8,7 @@
              d:DesignHeight="100" d:DesignWidth="500">
 	<DockPanel>
 		<Menu DockPanel.Dock="Top">
-			<MenuItem Header="_Blueprints">
+			<MenuItem Header="_File">
 				<MenuItem Header="_New Blueprint" />
 				<MenuItem Header="_Open Blueprint" />
 				<MenuItem Header="_Save Blueprint" IsEnabled="False" />
@@ -16,6 +16,7 @@
 				<Separator />
 				<MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
 			</MenuItem>
+			<MenuItem Header="_Blueprints" Name="BlueprintList" Binding.SourceUpdated="MenuItem_BlueprintListUpdated"></MenuItem>
 			<MenuItem Header="_Settings">
 				<MenuItem Header="_Blueprints">
 					<MenuItem Header="_Enable Auto-Sync" ToolTip="Enable auto-syncing blueprints when changes are detected." IsCheckable="True" IsChecked="True" />

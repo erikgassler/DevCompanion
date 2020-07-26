@@ -2,7 +2,7 @@
 
 namespace DevCompanion.Service
 {
-	public class DesktopService : IDesktopService
+	public class WindowsDesktopService : IDesktopService
 	{
 	}
 }

@@ -33,7 +33,7 @@ namespace DevCompanion.Service
 		private IServiceCollection SetupConfiguredServices()
 		{
 			IServiceCollection services = new ServiceCollection();
-			services.AddSingleton<IDesktopService, DesktopService>();
+			services.AddSingleton<IDesktopService, WindowsDesktopService>();
 			return services;
 		}
 

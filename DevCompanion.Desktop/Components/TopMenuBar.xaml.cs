@@ -23,11 +23,27 @@ namespace DevCompanion.Desktop.Components
 		public TopMenuBar()
 		{
 			InitializeComponent();
+			LoadBlueprintListItems();
+		}
+
+		private void LoadBlueprintListItems()
+		{
+			// Clear current list
+			this.BlueprintList.Items.Clear();
+			// Load with dummy items for now.
+			this.BlueprintList.Items.Add(new MenuItem() { Header = "_Dummy Blueprint 1" });
+			this.BlueprintList.Items.Add(new MenuItem() { Header = "_Dummy Blueprint 2" });
+			this.BlueprintList.Items.Add(new MenuItem() { Header = "_Dummy Blueprint 3" });
 		}
 
 		private void MenuItem_ClickExit(object sender, RoutedEventArgs e)
 		{
 			Application.Current.MainWindow.Close();
+		}
+
+		private void MenuItem_BlueprintListUpdated(object sender, DataTransferEventArgs e)
+		{
+
 		}
 	}
 }
