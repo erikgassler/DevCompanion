@@ -55,6 +55,7 @@ namespace DevCompanion.Service
 			IServiceCollection services = new ServiceCollection();
 			SetupClientServices(services);
 			SetupAppConfigurations(services);
+			SetupModelServices(services);
 			ClientServices?.Invoke(services);
 			return services;
 		}
@@ -66,6 +67,19 @@ namespace DevCompanion.Service
 		private void SetupClientServices(IServiceCollection services)
 		{
 			services.AddSingleton<IDesktopService, WindowsDesktopService>();
+		}
+
+		private void SetupModelServices(IServiceCollection services)
+		{
+			services.AddTransient<IBlueprint, Blueprint>();
+			services.AddTransient<IUnitTypeAzureAppConfig, UnitTypeAzureAppConfig>();
+			services.AddTransient<IUnitTypeAzureKeyVault, UnitTypeAzureKeyVault>();
+			services.AddTransient<IUnitTypeBlueprint, UnitTypeBlueprint>();
+			services.AddTransient<IUnitTypeCommandPromptScript, UnitTypeCommandPromptScript>();
+			services.AddTransient<IUnitTypeDocumentation, UnitTypeDocumentation>();
+			services.AddTransient<IUnitTypeEnvironmentVariable, UnitTypeEnvironmentVariable>();
+			services.AddTransient<IUnitTypePowerShellScript, UnitTypePowerShellScript>();
+			services.AddTransient<IUnitTypeWorkflow, UnitTypeWorkflow>();
 		}
 
 		private void SetupAppConfigurations(IServiceCollection services)

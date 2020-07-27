@@ -31,6 +31,12 @@ A key feature of Dev Companion is the ability to allow teams and developers to c
 ### Opening Dev Companion for the first time.
 When opening the application for the first time, the user should be presented with a startup guide giving them a quick overview of the application. Any Blueprint specific menu items should be disabled.
 
+### Setting URL for Cloud Storage API Endpoint
+To enable Cloud Storage, user will need to update setting.
+- User will set Cloud Storage API URL field in Settings -> Cloud -> API URL.
+- Dev Companion will validate syntax and then ping URL to confirm valid response.
+- When valid, API URL will be saved to user environment variable for Dev Companion to load endpoint from on subsequent loads.
+
 ### Creating a new Blueprint.
 Blueprints are displayed as a list of units or steps.
 - When creating/updating, the user can add, remove, and update units.

@@ -6,7 +6,7 @@ using Moq;
 
 namespace DevCompanion.UnitTests.Services
 {
-	public class UIAppSettingsLoader : MockHelpers
+	public class UTAppSettingsLoader : MockHelpers
 	{
 		[Fact]
 		public void VerifyLoadAppSettingsMissingFile()
