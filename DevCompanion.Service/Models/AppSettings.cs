@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace DevCompanion.Service
+﻿namespace DevCompanion.Service
 {
 	public class AppSettings : IAppSettings, IUserAppSettings, IDefaultAppSettings
 	{

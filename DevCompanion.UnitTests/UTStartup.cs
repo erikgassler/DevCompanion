@@ -8,6 +8,14 @@ namespace DevCompanion.UnitTests
 {
 	public class UTStartup : IClassFixture<StartupFixture>
 	{
+		public UTStartup()
+		{
+			Startup.ClientServices = services =>
+			{
+				services.AddSingleton<IFileSystem, MockFileSystem>();
+			};
+		}
+
 		[Fact]
 		public void VerifyDesktopService()
 		{
@@ -25,10 +33,6 @@ namespace DevCompanion.UnitTests
 		[Fact]
 		public void VerifyLoadingUserAppSettings()
 		{
-			Startup.ClientServices = services =>
-			{
-				services.AddSingleton<IFileSystem, MockFileSystem>();
-			};
 			IUserAppSettings settings = Startup.GetService<IUserAppSettings>();
 		}
 
