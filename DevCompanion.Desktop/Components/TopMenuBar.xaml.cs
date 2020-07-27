@@ -26,6 +26,21 @@ namespace DevCompanion.Desktop.Components
 			InitializeComponent();
 			AppSettings = Startup.GetService<IAppSettings>();
 			ApplySettings();
+			Application.Current.MainWindow.StateChanged += MainWindow_StateChanged;
+		}
+		
+		private void MainWindow_StateChanged(object sender, EventArgs e)
+		{
+			if (Application.Current.MainWindow.WindowState == WindowState.Maximized)
+			{
+				ButtonMinMax.Header = "_❐";
+				ButtonMinMax.ToolTip = "Restore Down";
+			}
+			else
+			{
+				ButtonMinMax.Header = "_☐";
+				ButtonMinMax.ToolTip = "Maximize";
+			}
 		}
 
 		private void ApplySettings()
@@ -90,6 +105,23 @@ namespace DevCompanion.Desktop.Components
 		private void MenuItem_BlueprintListUpdated(object sender, DataTransferEventArgs e)
 		{
 
+		}
+
+		private void MenuItem_ClickMinMaxResize(object sender, RoutedEventArgs e)
+		{
+			if(Application.Current.MainWindow.WindowState == WindowState.Maximized)
+			{
+				Application.Current.MainWindow.WindowState = WindowState.Normal;
+			}
+			else
+			{
+				Application.Current.MainWindow.WindowState = WindowState.Maximized;
+			}
+		}
+
+		private void MenuItem_ClickMinimize(object sender, RoutedEventArgs e)
+		{
+			Application.Current.MainWindow.WindowState = WindowState.Minimized;
 		}
 	}
 }

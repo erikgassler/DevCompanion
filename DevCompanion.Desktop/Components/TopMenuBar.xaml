@@ -7,7 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="500">
 	<DockPanel>
-		<Menu DockPanel.Dock="Top">
+		<Menu DockPanel.Dock="Right" FontSize="14" Background="Black" Foreground="White" Height="24">
+			<MenuItem Header="_⚊" Click="MenuItem_ClickMinimize" Padding="12 3" ToolTip="Minimize" />
+			<MenuItem Header="_☐" Name="ButtonMinMax" Click="MenuItem_ClickMinMaxResize" Padding="12 3" ToolTip="Maximize" />
+			<MenuItem Header="_✕" Click="MenuItem_ClickExit" Padding="12 3" ToolTip="Close" />
+		</Menu>
+		<Menu DockPanel.Dock="Left" FontSize="14" Foreground="White" Background="DarkCyan" Padding="0 2 0 0" Height="26">
+			<Image Source="/Logo_64.png" Height="16" />
 			<MenuItem Header="_File">
 				<MenuItem Header="_New Blueprint" />
 				<MenuItem Header="_Open Blueprint" />
@@ -25,5 +31,6 @@
 				</MenuItem>
 			</MenuItem>
 		</Menu>
+		<DockPanel DockPanel.Dock="Top" Height="25" Background="Gray" />
 	</DockPanel>
 </UserControl>

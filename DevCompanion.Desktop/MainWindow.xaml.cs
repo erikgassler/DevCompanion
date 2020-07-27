@@ -31,6 +31,25 @@ namespace DevCompanion.Desktop
 			InitializeComponent();
 			DesktopService = Startup.GetService<IDesktopService>();
 			AttachStartupContent();
+			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
+		}
+		#region Toolbar Dragging
+
+		private void TopMenuBar_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.LeftButton != MouseButtonState.Pressed)
+			{
+				return;
+			}
+			this.DragMove();
+		}
+
+
+		#endregion
+
+		public void UpdateStatus(string status)
+		{
+			this.LatestStatusUpdate.Text = status;
 		}
 
 		private void AttachStartupContent()

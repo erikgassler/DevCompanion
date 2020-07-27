@@ -7,13 +7,27 @@
 	xmlns:components="clr-namespace:DevCompanion.Desktop.Components"
 	mc:Ignorable="d"
 	Title="Dev Companion" Height="350" Width="500"
-	WindowStyle="SingleBorderWindow" Icon="/Logo_64.png"
+		BorderThickness="0"
+		Background="Black"
+		Foreground="White"
+	WindowStyle="None" Icon="/Logo_64.png"
 		SizeToContent="Manual"
 	>
 	<DockPanel LastChildFill="True">
-		<DockPanel DockPanel.Dock="Top">
+		<DockPanel DockPanel.Dock="Top" x:Name="CustomToolbar" Cursor="Arrow">
 			<components:TopMenuBar />
 		</DockPanel>
+		<StatusBar DockPanel.Dock="Bottom" FontSize="10">
+			<StatusBar.Background>
+				<SolidColorBrush Color="AliceBlue" />
+			</StatusBar.Background>
+			<StatusBarItem>
+				<TextBlock x:Name="LatestStatusUpdate" Text="" />
+			</StatusBarItem>
+			<StatusBarItem HorizontalAlignment="Right">
+				<ProgressBar x:Name="ProcessingProgress" Value="70" Width="100" Height="8" />
+			</StatusBarItem>
+		</StatusBar>
 		<DockPanel x:Name="MainContentContainer" DockPanel.Dock="Top" />
 	</DockPanel>
 </Window>
