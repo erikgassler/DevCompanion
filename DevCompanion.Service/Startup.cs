@@ -84,20 +84,7 @@ namespace DevCompanion.Service
 
 		private void SetupAppConfigurations(IServiceCollection services)
 		{
-			services.AddSingleton<IAppSettingsLoader, AppSettingsLoader>();
-			services.AddSingleton<IDefaultAppSettings>(provider =>
-			{
-				IAppSettings fileSettings = provider.GetService<IAppSettingsLoader>()
-					.LoadAppSettingsFromJSON()
-					.GetAwaiter()
-					.GetResult();
-				return new AppSettings(fileSettings);
-			});
-			services.AddSingleton<IUserAppSettings>(provider =>
-			{
-				IAppSettings defaultSettings = provider.GetService<IDefaultAppSettings>();
-				return new AppSettings(defaultSettings);
-			});
+			services.AddSingleton<IAppSettings, AppSettings>();
 		}
 
 		private IServiceProvider Provider { get; set; }

@@ -18,8 +18,9 @@
 			</MenuItem>
 			<MenuItem Header="_Blueprints" Name="BlueprintList" Binding.SourceUpdated="MenuItem_BlueprintListUpdated"></MenuItem>
 			<MenuItem Header="_Settings">
-				<MenuItem Header="_Cloud">
-					<PasswordBox x:Name="CloudStorageAPIEndpoint" />
+				<MenuItem Header="_Cloud" StaysOpenOnClick="True">
+					<local:MenuItemTextInput x:Name="CloudStorageAPIEndpoint" DisplayText="Cloud Endpoint" />
+					<local:MenuItemTextInput x:Name="CloudStorageAPILicense" DisplayText="Cloud License" />
 					<MenuItem Header="_Enable Auto-Sync" Name="AutoSyncBlueprintToggle" ToolTip="Enable auto-syncing blueprints when changes are detected." IsCheckable="True" />
 				</MenuItem>
 			</MenuItem>

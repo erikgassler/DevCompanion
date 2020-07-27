@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace DevCompanion.Service
 {
@@ -8,6 +9,8 @@ namespace DevCompanion.Service
 	public interface IFileSystem
 	{
 		string GetFullPath(string partialPath);
+		bool TryGetRegistryValue(string key, out string value);
+		void SetRegistryValue(string key, string value);
 		bool Exists(string filePath);
 		Task<string> ReadAllTextAsync(string filePath);
 	}

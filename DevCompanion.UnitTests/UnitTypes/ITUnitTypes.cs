@@ -4,7 +4,7 @@ using Xunit;
 
 namespace DevCompanion.BuildTests.UnitTypes
 {
-	public class UnitTypeIntegrations
+	public class ITUnitTypes
 	{
 		[Theory]
 		[InlineData(Constants.UnitType.AzureAppConfig, typeof(IUnitTypeAzureAppConfig))]

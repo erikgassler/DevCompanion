@@ -24,14 +24,50 @@ namespace DevCompanion.Desktop.Components
 		public TopMenuBar()
 		{
 			InitializeComponent();
-			AppSettings = Startup.GetService<IUserAppSettings>();
+			AppSettings = Startup.GetService<IAppSettings>();
 			ApplySettings();
 		}
 
 		private void ApplySettings()
 		{
-			this.AutoSyncBlueprintToggle.IsChecked = AppSettings.EnableAutoSyncForCloudBlueprints;
+			ApplyCloudAPIEndpointSetting();
+			ApplyCloudAPILicenseSetting();
+			ApplyAutoSyncSetting();
 			LoadBlueprintListItems();
+		}
+
+		private void ApplyCloudAPIEndpointSetting()
+		{
+			this.CloudStorageAPIEndpoint.RefValue = AppSettings.CloudAPIEndpoint;
+			this.CloudStorageAPIEndpoint.RefValueUpdated += CloudStorageAPIEndpoint_RefValueUpdated;
+		}
+
+		private void CloudStorageAPIEndpoint_RefValueUpdated(object sender, EventArgs e)
+		{
+			AppSettings.CloudAPIEndpoint = ((MenuItemTextInput)sender).RefValue;
+		}
+
+		private void ApplyCloudAPILicenseSetting()
+		{
+			this.CloudStorageAPILicense.RefValue = AppSettings.CloudAPILicense;
+			this.CloudStorageAPILicense.RefValueUpdated += CloudStorageAPILicense_RefValueUpdated;
+		}
+
+		private void CloudStorageAPILicense_RefValueUpdated(object sender, EventArgs e)
+		{
+			AppSettings.CloudAPILicense = ((MenuItemTextInput)sender).RefValue;
+		}
+
+		private void ApplyAutoSyncSetting()
+		{
+			this.AutoSyncBlueprintToggle.IsChecked = AppSettings.EnableAutoSyncForCloudBlueprints;
+			this.AutoSyncBlueprintToggle.StaysOpenOnClick = true;
+			this.AutoSyncBlueprintToggle.Click += AutoSyncBlueprintToggle_Click;
+		}
+
+		private void AutoSyncBlueprintToggle_Click(object sender, RoutedEventArgs e)
+		{
+			AppSettings.EnableAutoSyncForCloudBlueprints = this.AutoSyncBlueprintToggle.IsChecked;
 		}
 
 		private IAppSettings AppSettings { get; }

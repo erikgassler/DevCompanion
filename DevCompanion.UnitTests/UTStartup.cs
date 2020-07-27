@@ -1,6 +1,7 @@
 using DevCompanion.Service;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -33,7 +34,7 @@ namespace DevCompanion.UnitTests
 		[Fact]
 		public void VerifyLoadingUserAppSettings()
 		{
-			IUserAppSettings settings = Startup.GetService<IUserAppSettings>();
+			IAppSettings settings = Startup.GetService<IAppSettings>();
 		}
 
 		private class MockFileSystem : IFileSystem
@@ -52,6 +53,18 @@ namespace DevCompanion.UnitTests
 			{
 				return Task.FromResult("");
 			}
+
+			public void SetRegistryValue(string key, string value)
+			{
+				Registry[key] = value;
+			}
+
+			public bool TryGetRegistryValue(string key, out string value)
+			{
+				return Registry.TryGetValue(key, out value);
+			}
+
+			private Dictionary<string, string> Registry = new Dictionary<string, string>();
 		}
 	}
 }
