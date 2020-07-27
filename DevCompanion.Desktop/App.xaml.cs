@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DevCompanion.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace DevCompanion.Desktop
@@ -13,5 +9,13 @@ namespace DevCompanion.Desktop
 	/// </summary>
 	public partial class App : Application
 	{
+		public App()
+			: base()
+		{
+			Service.Startup.ClientServices = services =>
+			{
+				services.AddSingleton<IFileSystem, FileSystem>();
+			};
+		}
 	}
 }

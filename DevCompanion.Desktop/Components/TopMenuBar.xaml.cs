@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevCompanion.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,17 @@ namespace DevCompanion.Desktop.Components
 		public TopMenuBar()
 		{
 			InitializeComponent();
+			AppSettings = Startup.GetService<IUserAppSettings>();
+			ApplySettings();
+		}
+
+		private void ApplySettings()
+		{
+			this.AutoSyncBlueprintToggle.IsChecked = AppSettings.EnableAutoSyncForCloudBlueprints;
 			LoadBlueprintListItems();
 		}
+
+		private IAppSettings AppSettings { get; }
 
 		private void LoadBlueprintListItems()
 		{

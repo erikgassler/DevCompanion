@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30317.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevCompanion.Desktop", "DevCompanion.Desktop\DevCompanion.Desktop.csproj", "{639C0E21-FE80-4B6A-B6DE-1A94EF64DA5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevCompanion.Desktop", "DevCompanion.Desktop\DevCompanion.Desktop.csproj", "{639C0E21-FE80-4B6A-B6DE-1A94EF64DA5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{36BFBB4F-08B0-436D-858C-B35F632C78D7}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevCompanion.Service", "DevCompanion.Service\DevCompanion.Service.csproj", "{92438949-8C08-41CD-8B7A-860A1A1FAB62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevCompanion.Service", "DevCompanion.Service\DevCompanion.Service.csproj", "{92438949-8C08-41CD-8B7A-860A1A1FAB62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevCompanion.UnitTests", "DevCompanion.UnitTests\DevCompanion.UnitTests.csproj", "{7B6F5278-2191-4620-916D-F1575210D59B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevCompanion.BuildTests", "DevCompanion.UnitTests\DevCompanion.BuildTests.csproj", "{7B6F5278-2191-4620-916D-F1575210D59B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5827BB10-7600-4EAE-A8E5-41658BFA6183}"
 EndProject
