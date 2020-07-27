@@ -73,7 +73,7 @@ This service will allow users to define an event to watch for that will trigger 
 - Blueprint units can represent a variety of types as detailed below.
 - Each unit consists of 2 stages, a [Processor], and a [Validator].
 	- Processor: This stage represents a process that needs to be viewed or run to complete the expected task of the unit.
-    - Validator: This stage represents a process that needs to be run after the Processor and during Health checkups to validate. Depending on the unit type this may need to be defined with a specific script from the user, or may be automatically set such as in the case of documentation types, which will automatically have an associated acknowledgment flag and a Validator that checks if the user has acknowledged the content, setting the flag to true.
+    - Validator: This stage represents a process that needs to be run after the Processor and during Health checkups to validate the unit success conditions have been met. Depending on the unit type this may need to be defined with a specific script from the user, or may be automatically set such as in the case of documentation types, which will automatically have an associated acknowledgment flag and a Validator that checks if the user has acknowledged the content, setting the flag to true.
 - Any value can be a static text value, a reference to a different unit containing a static value, or a url for a key vault key/secret/certificate value.
 - If no value is given, then the user is expected to provide one.
 - Users always have the option to overwrite Blueprint provided values with their own locally defined values, without updating the actual Blueprint definitions.

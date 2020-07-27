@@ -18,5 +18,13 @@ namespace DevCompanion.UnitTests
 		{
 			Assert.Equal(expectedDisplay, enumValue.DisplayName());
 		}
+
+		[Theory]
+		[InlineData("This stage represents the main process", Constants.UnitStage.Processor)]
+		[InlineData("This stage represents a process that needs to run after the Processor", Constants.UnitStage.Validator)]
+		public void VerifyDescriptionOutput(string expectedDisplay, Constants.UnitStage enumValue)
+		{
+			Assert.Contains(expectedDisplay, enumValue.Details());
+		}
 	}
 }
