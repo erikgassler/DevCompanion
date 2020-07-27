@@ -48,7 +48,13 @@ namespace DevCompanion.Desktop.Components
 			ApplyCloudAPIEndpointSetting();
 			ApplyCloudAPILicenseSetting();
 			ApplyAutoSyncSetting();
+			ApplyColors();
 			LoadBlueprintListItems();
+		}
+
+		private void ApplyColors()
+		{
+
 		}
 
 		private void ApplyCloudAPIEndpointSetting()

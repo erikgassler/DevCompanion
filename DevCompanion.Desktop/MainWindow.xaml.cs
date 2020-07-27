@@ -32,6 +32,8 @@ namespace DevCompanion.Desktop
 			DesktopService = Startup.GetService<IDesktopService>();
 			AttachStartupContent();
 			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
+			Uri imagePath = new Uri("Logo_Watermark.png", UriKind.Relative);
+			BackgroundImage.ImageSource = new BitmapImage(imagePath);
 		}
 		#region Toolbar Dragging
 

@@ -6,13 +6,20 @@
 	xmlns:local="clr-namespace:DevCompanion.Desktop"
 	xmlns:components="clr-namespace:DevCompanion.Desktop.Components"
 	mc:Ignorable="d"
-	Title="Dev Companion" Height="350" Width="500"
-		BorderThickness="0"
-		Background="Black"
-		Foreground="White"
+	Title="Dev Companion" Height="720" Width="900"
+	BorderThickness="0"
+	Foreground="White"
 	WindowStyle="None" Icon="/Logo_64.png"
-		SizeToContent="Manual"
+	SizeToContent="Manual"
+	MinWidth="500"
+	MinHeight="300"
 	>
+	<Window.Background>
+		<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="#305" Offset="0.1" />
+			<GradientStop Color="#103" Offset="0.9" />
+		</LinearGradientBrush>
+	</Window.Background>
 	<DockPanel LastChildFill="True">
 		<DockPanel DockPanel.Dock="Top" x:Name="CustomToolbar" Cursor="Arrow">
 			<components:TopMenuBar />
@@ -28,6 +35,11 @@
 				<ProgressBar x:Name="ProcessingProgress" Value="70" Width="100" Height="8" />
 			</StatusBarItem>
 		</StatusBar>
-		<DockPanel x:Name="MainContentContainer" DockPanel.Dock="Top" />
+		<ScrollViewer DockPanel.Dock="Top" FontSize="16">
+			<ScrollViewer.Background>
+				<ImageBrush x:Name="BackgroundImage" TileMode="None" AlignmentX="Right" AlignmentY="Bottom" Stretch="None" Opacity="0.7" Viewbox="0,0,1.4,1.15" Viewport="0,0,1,1" />
+			</ScrollViewer.Background>
+			<DockPanel x:Name="MainContentContainer" />
+		</ScrollViewer>
 	</DockPanel>
 </Window>

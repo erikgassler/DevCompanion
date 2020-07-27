@@ -12,9 +12,9 @@
 			<MenuItem Header="_☐" Name="ButtonMinMax" Click="MenuItem_ClickMinMaxResize" Padding="12 3" ToolTip="Maximize" />
 			<MenuItem Header="_✕" Click="MenuItem_ClickExit" Padding="12 3" ToolTip="Close" />
 		</Menu>
-		<Menu DockPanel.Dock="Left" FontSize="14" Foreground="White" Background="DarkCyan" Padding="0 2 0 0" Height="26">
+		<Menu Style="{DynamicResource MenuStyleDefault}" DockPanel.Dock="Left" FontSize="14" Padding="0 2 0 0" Height="26">
 			<Image Source="/Logo_64.png" Height="16" />
-			<MenuItem Header="_File">
+			<MenuItem Style="{DynamicResource MenuItemDefault}" Header="_File">
 				<MenuItem Header="_New Blueprint" />
 				<MenuItem Header="_Open Blueprint" />
 				<MenuItem Header="_Save Blueprint" IsEnabled="False" />

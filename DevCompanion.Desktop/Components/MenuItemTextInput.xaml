@@ -10,6 +10,6 @@
 		<TextBox x:Name="TextValue" Width="180" />
 		<Button x:Name="CancelUpdate" Content="🗙" Width="20" Background="Red" Foreground="White" />
 		<Button x:Name="SaveChange" Content="✔" Background="Green" Foreground="White" />
-		<Button x:Name="OpenEditor" Content="" Width="180" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" />
+		<Button Style="{DynamicResource MenuButtonStyleDefault}" x:Name="OpenEditor" Content="" Width="180" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" />
 	</StackPanel>
 </UserControl>
