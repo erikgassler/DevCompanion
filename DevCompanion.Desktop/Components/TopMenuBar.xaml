@@ -15,10 +15,10 @@
 		<Menu Style="{DynamicResource MenuStyleDefault}" DockPanel.Dock="Left" FontSize="14" Padding="0 2 0 0" Height="26">
 			<Image Source="/Logo_64.png" Height="16" />
 			<MenuItem Style="{DynamicResource MenuItemDefault}" Header="_File">
-				<MenuItem Header="_New Blueprint" Click="MenuItem_ClickCreateBlueprint" />
-				<MenuItem Header="_Open Blueprint" Click="MenuItem_ClickOpenBlueprint" />
-				<MenuItem Header="_Save Blueprint" Click="MenuItem_ClickSaveBlueprint" IsEnabled="False" />
-				<MenuItem Header="_Sync Blueprint" Click="MenuItem_ClickSyncBlueprint" IsEnabled="False" />
+				<MenuItem Header="_New Blueprint" Click="MenuItem_ClickCreateBlueprint" x:Name="MenuItemNewBlueprint" />
+				<MenuItem Header="_Open Blueprint" Click="MenuItem_ClickOpenBlueprint" x:Name="MenuItemOpenBlueprint" />
+				<MenuItem Header="_Save Blueprint" Click="MenuItem_ClickSaveBlueprint" x:Name="MenuItemSaveBlueprint" IsEnabled="False" />
+				<MenuItem Header="_Sync Blueprint" Click="MenuItem_ClickSyncBlueprint" x:Name="MenuItemSyncBlueprint" IsEnabled="False" />
 				<Separator />
 				<MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
 			</MenuItem>

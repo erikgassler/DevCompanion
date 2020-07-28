@@ -1,7 +1,12 @@
-﻿namespace DevCompanion.Service
+﻿using System;
+
+namespace DevCompanion.Service
 {
 	public class PlaceholderDesktopWindow : IDesktopWindow
 	{
+		public event EventHandler<Constants.ContentPage> OnChangeContentPage;
+		public event EventHandler<IBlueprint> OnLoadedBlueprint;
+
 		public void ChangeContentPage(Constants.ContentPage page)
 		{
 		}

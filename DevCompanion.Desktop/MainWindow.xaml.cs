@@ -71,6 +71,9 @@ namespace DevCompanion.Desktop
 			});
 		}
 
+		public event EventHandler<Constants.ContentPage> OnChangeContentPage;
+		public event EventHandler<IBlueprint> OnLoadedBlueprint;
+
 		public void ChangeContentPage(Constants.ContentPage page)
 		{
 			lock (LockPageSwap)
@@ -94,12 +97,14 @@ namespace DevCompanion.Desktop
 				}
 				MainContentContainer.Children.Add(CurrentPageControl);
 			}
+			OnChangeContentPage?.Invoke(this, CurrentPage);
 		}
 
 		public void LoadBlueprint(IBlueprint blueprint)
 		{
 			ActiveBlueprint = blueprint;
 			ChangeContentPage(Constants.ContentPage.Blueprint);
+			OnLoadedBlueprint?.Invoke(this, ActiveBlueprint);
 		}
 
 		public void OpenBlueprint()

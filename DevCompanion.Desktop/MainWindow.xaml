@@ -26,7 +26,7 @@
 		<DockPanel DockPanel.Dock="Top" x:Name="CustomToolbar" Cursor="Arrow">
 			<components:TopMenuBar />
 		</DockPanel>
-		<StatusBar DockPanel.Dock="Bottom" FontSize="10">
+		<StatusBar DockPanel.Dock="Bottom" FontSize="12">
 			<StatusBar.Background>
 				<SolidColorBrush Color="{DynamicResource AppPrimaryColor}" />
 			</StatusBar.Background>

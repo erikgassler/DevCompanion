@@ -79,7 +79,22 @@ namespace DevCompanion.Desktop.Components
 		private void SetupEventHandlers()
 		{
 			Application.Current.MainWindow.StateChanged += MainWindow_StateChanged;
+			DesktopWindow.OnLoadedBlueprint += DesktopWindow_OnLoadedBlueprint;
 		}
+
+		private void DesktopWindow_OnLoadedBlueprint(object sender, IBlueprint blueprint)
+		{
+			if(blueprint == null)
+			{
+				MenuItemSaveBlueprint.IsEnabled = false;
+				MenuItemSyncBlueprint.IsEnabled = false;
+			}
+			else
+			{
+				MenuItemSaveBlueprint.IsEnabled = true;
+			}
+		}
+
 		private void MainWindow_StateChanged(object sender, EventArgs e)
 		{
 			if (Application.Current.MainWindow.WindowState == WindowState.Maximized)

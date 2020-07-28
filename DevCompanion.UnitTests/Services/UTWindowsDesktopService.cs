@@ -1,7 +1,6 @@
 ﻿using DevCompanion.Service;
 using DevCompanion.Service.Interfaces;
 using System;
-using System.Threading;
 using Xunit;
 
 namespace DevCompanion.BuildTests

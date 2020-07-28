@@ -1,4 +1,6 @@
-﻿namespace DevCompanion.Service
+﻿using System;
+
+namespace DevCompanion.Service
 {
 	public interface IDesktopWindow
 	{
@@ -10,5 +12,7 @@
 		void OpenBlueprint();
 		void SaveBlueprint();
 		void SyncBlueprint();
+		event EventHandler<Constants.ContentPage> OnChangeContentPage;
+		event EventHandler<IBlueprint> OnLoadedBlueprint;
 	}
 }
