@@ -1,10 +1,11 @@
 using DevCompanion.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xunit;
 
 namespace DevCompanion.UnitTests
 {
-	public class UTStartup : IDisposable
+	public class UTStartup
 	{
 		public UTStartup()
 		{
@@ -17,26 +18,22 @@ namespace DevCompanion.UnitTests
 		[Fact]
 		public void VerifyDesktopService()
 		{
-			IServiceProvider provider = Startup.GetService<IServiceProvider>();
+			ServiceProvider provider = Startup.GetProvider();
 			Assert.NotNull(provider);
 		}
 
 		[Fact]
 		public void VerifyCanAccessServiceProviderIfNeeded()
 		{
-			IServiceProvider provider = Startup.GetService<IServiceProvider>();
+			ServiceProvider provider = Startup.GetProvider();
 			Assert.NotNull(provider);
 		}
 
 		[Fact]
 		public void VerifyLoadingUserAppSettings()
 		{
-			IAppSettings settings = Startup.GetService<IAppSettings>();
-		}
-
-		public void Dispose()
-		{
-			Startup.CloseServices();
+			ServiceProvider provider = Startup.GetProvider();
+			IAppSettings settings = provider.GetService<IAppSettings>();
 		}
 	}
 }

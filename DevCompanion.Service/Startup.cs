@@ -7,10 +7,10 @@ namespace DevCompanion.Service
 	public class Startup : IDisposable
 	{
 		#region Static Methods & Properties
-		public static T GetService<T>()
+		public static ServiceProvider GetProvider()
 		{
 			Instance ??= new Startup(); // Setup singleton if null
-			return Instance.GetProviderService<T>();
+			return Instance.Provider;
 		}
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace DevCompanion.Service
 		public static event HandleServicesReady OnServicesReady;
 		public static void DesktopServicesAreReady()
 		{
-			OnServicesReady.Invoke((ServiceProvider)Instance.Provider);
+			OnServicesReady.Invoke(Instance.Provider);
 		}
 
 		/// <summary>
@@ -42,18 +42,7 @@ namespace DevCompanion.Service
 		/// </summary>
 		private Startup()
 		{
-		}
-
-		/// <summary>
-		/// Extra wrapper method for accessing Provider.GetService to assure Provider has not been disposed.
-		/// This is more for unit tests (at least with NCrunch) which seems to retest updates using old instances that already ran CloseServices() which disposed of Provider.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		private T GetProviderService<T>()
-		{
-			Provider ??= SetupConfiguredServices().BuildServiceProvider();
-			return Provider.GetService<T>();
+			Provider = SetupConfiguredServices().BuildServiceProvider();
 		}
 
 		/// <summary>
@@ -100,11 +89,11 @@ namespace DevCompanion.Service
 			services.AddSingleton<IAppSettings, AppSettings>();
 		}
 
-		private IServiceProvider Provider { get; set; }
+		private ServiceProvider Provider { get; set; }
 
 		public void Dispose()
 		{
-			((ServiceProvider)Provider)?.Dispose();
+			Provider?.Dispose();
 			Provider = null;
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using DevCompanion.Desktop.StaticContent;
+﻿using DevCompanion.Desktop.ContentPages;
+using DevCompanion.Desktop.StaticContent;
 using DevCompanion.Service;
 using DevCompanion.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +31,8 @@ namespace DevCompanion.Desktop
 			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
 			Uri imagePath = new Uri("Logo_Watermark.png", UriKind.Relative);
 			BackgroundImage.ImageSource = new BitmapImage(imagePath);
-			DesktopService = Startup.GetService<IDesktopService>();
+			Provider = Startup.GetProvider();
+			DesktopService = Provider.GetService<IDesktopService>();
 			Startup.DesktopServicesAreReady();
 		}
 		#region Toolbar Dragging
@@ -81,10 +83,13 @@ namespace DevCompanion.Desktop
 				}
 				switch (page)
 				{
+					case Constants.ContentPage.Blueprint:
+						CurrentPageControl = new PageBlueprint(Provider, ActiveBlueprint);
+						break;
 					case Constants.ContentPage.FirstStartup:
 					default:
 						CurrentPage = Constants.ContentPage.FirstStartup;
-						CurrentPageControl = new FirstStartup();
+						CurrentPageControl = new FirstStartup(Provider);
 						break;
 				}
 				MainContentContainer.Children.Add(CurrentPageControl);
@@ -93,7 +98,8 @@ namespace DevCompanion.Desktop
 
 		public void LoadBlueprint(IBlueprint blueprint)
 		{
-
+			ActiveBlueprint = blueprint;
+			ChangeContentPage(Constants.ContentPage.Blueprint);
 		}
 
 		public void OpenBlueprint()
@@ -118,9 +124,11 @@ namespace DevCompanion.Desktop
 			this.Close();
 		}
 
+		private IBlueprint ActiveBlueprint { get; set; }
 		private object LockPageSwap { get; } = new object();
 		private Constants.ContentPage CurrentPage { get; set; }
 		private UserControl CurrentPageControl { get; set; }
+		private ServiceProvider Provider { get; set; }
 		private IDesktopService DesktopService { get; set; }
 
 		#region IDisposable

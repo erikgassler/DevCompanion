@@ -4,7 +4,8 @@
 	{
 		public enum ContentPage
 		{
-			FirstStartup = 1
+			FirstStartup = 1,
+			Blueprint = 2
 		}
 	}
 }

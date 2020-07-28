@@ -15,10 +15,8 @@ namespace DevCompanion.Service
 		{
 			DesktopWindow = window;
 			ServiceProvider = serviceProvider;
-			window.UpdateStatus("Initializing services!");
 			SetStartupContent();
 			RunServices();
-			window.UpdateStatus("Services initialized!");
 		}
 
 		/// <summary>
@@ -44,14 +42,17 @@ namespace DevCompanion.Service
 
 		public void OpenBlueprint()
 		{
+			DesktopWindow.UpdateStatus("Opening Blueprint not yet supported!");
 		}
 
 		public void SaveBlueprint()
 		{
+			DesktopWindow.UpdateStatus("Saving Blueprint not yet supported!");
 		}
 
 		public void SyncBlueprint()
 		{
+			DesktopWindow.UpdateStatus("Syncing Blueprint not yet supported!");
 		}
 
 		private void SetStartupContent()

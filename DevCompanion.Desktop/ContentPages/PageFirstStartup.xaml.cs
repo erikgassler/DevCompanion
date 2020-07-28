@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevCompanion.Service;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,15 @@ namespace DevCompanion.Desktop.StaticContent
 	/// </summary>
 	public partial class FirstStartup : UserControl
 	{
-		public FirstStartup()
+		public FirstStartup(ServiceProvider provider)
 		{
+			Provider = provider;
+			DesktopWindow = provider.GetService<IDesktopWindow>();
 			InitializeComponent();
+			DesktopWindow.UpdateStatus("Get Started by creating or opening your first Blueprint!");
 		}
+
+		private IDesktopWindow DesktopWindow { get; }
+		private ServiceProvider Provider { get; }
 	}
 }

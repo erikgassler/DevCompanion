@@ -1,4 +1,5 @@
 ﻿using DevCompanion.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xunit;
 
@@ -30,7 +31,8 @@ namespace DevCompanion.BuildTests.UnitTypes
 		{
 			public T GetService()
 			{
-				return Startup.GetService<T>();
+				ServiceProvider provider = Startup.GetProvider();
+				return provider.GetService<T>();
 			}
 		}
 	}
