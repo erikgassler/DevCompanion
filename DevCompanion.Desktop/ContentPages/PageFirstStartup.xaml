@@ -16,9 +16,15 @@
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">What are Blueprints you ask?</TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Well, they are the name we give to any collection of scripts, configurations, documentation, and solution references.</TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">You can have multiple Blueprints to help you keep track of your various projects separately. But only 1 Blueprint can be loaded at a time.</TextBlock>
-		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">When creating a new Blueprint, you will have the option of saving it locally, or saving to the Cloud.</TextBlock>
-		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Saving to the Cloud is recommended so you can easily access from multiple computers, share with your Team, as well as stay synced when any changes are made from another device or team member.</TextBlock>
-		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">When creating a new Blueprint, you will have the option of saving it locally, or saving to the Cloud. Blueprints can only be saved to one or the other.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Each Blueprint will have an associated password used to encrypt and decrypt the Blueprint. When you create new locally saved Blueprints, you can set your own password, giving you the option to use the same password for all of your Blueprints, or creating a different password for each Blueprint.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">When saving to the Cloud, each Blueprint will have a password auto-generated. This helps to ensure security.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">When saving a new Blueprint to your local machine, your will be prompted to set or update the password for the Blueprint being saved. It will use your default password. If you have not set a default password, then a password will be auto-generated for you.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">If you share a local Blueprint file, you will need to also share the password used so the person you are sharing with can unlock the file.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Set your default password for your locally saved Blueprints:</TextBlock>
+		<TextBox x:Name="LocalPassword" DockPanel.Dock="Top" MaxWidth="300" MaxLength="200" />
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Remember, cloud saves will not use this password. This is only for your locally saved Blueprints.</TextBlock>
+		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px">Saving to the Cloud is recommended so you can easily access from multiple computers; share Blueprints with your Team; and stay synced when any changes are made from another device or team member.</TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>
 		<TextBlock DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Padding="5px"></TextBlock>

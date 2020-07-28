@@ -26,11 +26,20 @@ namespace DevCompanion.Desktop.StaticContent
 		{
 			Provider = provider;
 			DesktopWindow = provider.GetService<IDesktopWindow>();
+			AppSettings = provider.GetService<IAppSettings>();
 			InitializeComponent();
+			SetupPasswordField();
 			DesktopWindow.UpdateStatus("Get Started by creating or opening your first Blueprint!");
 		}
 
+		private void SetupPasswordField()
+		{
+			LocalPassword.Text = AppSettings.LocalEncryptionKey;
+			LocalPassword.TextChanged += (object sender, TextChangedEventArgs e)=> AppSettings.LocalEncryptionKey = LocalPassword.Text;
+		}
+
 		private IDesktopWindow DesktopWindow { get; }
+		private IAppSettings AppSettings { get; }
 		private ServiceProvider Provider { get; }
 	}
 }

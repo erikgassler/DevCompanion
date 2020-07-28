@@ -28,11 +28,14 @@ namespace DevCompanion.Desktop.Components
 		}
 
 		#region Menu Click Handlers
+		private void MenuItem_ClickFirstStartupPage(object sender, RoutedEventArgs e)
+		{
+			DesktopWindow.ChangeContentPage(Constants.ContentPage.FirstStartup);
+		}
 		private void AutoSyncBlueprintToggle_Click(object sender, RoutedEventArgs e)
 		{
 			AppSettings.EnableAutoSyncForCloudBlueprints = this.AutoSyncBlueprintToggle.IsChecked;
 		}
-
 		private void MenuItem_ClickExit(object sender, RoutedEventArgs e)
 		{
 			DesktopWindow.CloseApplication();
@@ -115,27 +118,28 @@ namespace DevCompanion.Desktop.Components
 		{
 			ConfigureUpdatingStringSettings(
 				this.LocalEncryptionKey, 
-				AppSettings.LocalEncryptionKey, 
+				() => AppSettings.LocalEncryptionKey, 
 				newValue => AppSettings.LocalEncryptionKey = newValue
 				);
 			ConfigureUpdatingStringSettings(
 				this.CloudStorageAPIEndpoint,
-				AppSettings.CloudAPIEndpoint,
+				() => AppSettings.CloudAPIEndpoint,
 				newValue => AppSettings.CloudAPIEndpoint = newValue
 				);
 			ConfigureUpdatingStringSettings(
 				this.CloudStorageAPILicense,
-				AppSettings.CloudAPILicense,
+				() => AppSettings.CloudAPILicense,
 				newValue => AppSettings.CloudAPILicense = newValue
 				);
 			ApplyAutoSyncSetting();
 			LoadBlueprintListItems();
 		}
 
-		private void ConfigureUpdatingStringSettings(MenuItemTextInput input, string loadedValue, Action<string> onSave)
+		private void ConfigureUpdatingStringSettings(MenuItemTextInput input, Func<string> onLoad, Action<string> onSave)
 		{
-			input.RefValue = loadedValue;
+			input.RefValue = onLoad();
 			input.RefValueUpdated += (object sender, EventArgs e) => onSave(input.RefValue);
+			input.OnOpeningEditor += (object sender, TextBox field) => input.RefValue = onLoad();
 		}
 
 		private void ApplyAutoSyncSetting()

@@ -60,11 +60,13 @@ namespace DevCompanion.Desktop.Components
 
 		private void OpenEditor_Click(object sender, RoutedEventArgs e)
 		{
+			OnOpeningEditor?.Invoke(this, TextValue);
 			TextValue.Text = RefValue;
 			EnableEditing();
 		}
 
 		public event EventHandler RefValueUpdated;
+		public event EventHandler<TextBox> OnOpeningEditor;
 		public string RefValue { get; set; }
 		public string DisplayText { get => (string)OpenEditor.Content; set => OpenEditor.Content = value; }
 	}

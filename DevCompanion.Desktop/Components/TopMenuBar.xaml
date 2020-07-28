@@ -31,6 +31,9 @@
 					<MenuItem Header="_Enable Auto-Sync" Name="AutoSyncBlueprintToggle" ToolTip="Enable auto-syncing blueprints when changes are detected." IsCheckable="True" />
 				</MenuItem>
 			</MenuItem>
+			<MenuItem Header="_Help">
+				<MenuItem Header="_First Startup Page" x:Name="MenuItemFirstStartupPage" Click="MenuItem_ClickFirstStartupPage" ToolTip="Navigate to Startup Page that loads when no Blueprints are available to load on startup." />
+			</MenuItem>
 		</Menu>
 		<DockPanel DockPanel.Dock="Top" Height="25" Background="#111" />
 	</DockPanel>
