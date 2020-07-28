@@ -1,18 +1,8 @@
 ﻿using DevCompanion.Service;
+using DevCompanion.Service.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DevCompanion.Desktop.Components
 {
@@ -24,10 +14,11 @@ namespace DevCompanion.Desktop.Components
 		public TopMenuBar()
 		{
 			InitializeComponent();
+			DesktopWindow = (IDesktopWindow)Application.Current.MainWindow;
 			AppSettings = Startup.GetService<IAppSettings>();
+			DesktopService = Startup.GetService<IDesktopService>();
 			SetupEventHandlers();
 			ApplySettings();
-			DesktopWindow = (IDesktopWindow)Application.Current.MainWindow;
 		}
 
 		#region Menu Click Handlers
@@ -59,22 +50,22 @@ namespace DevCompanion.Desktop.Components
 
 		private void MenuItem_ClickCreateBlueprint(object sender, RoutedEventArgs e)
 		{
-
+			DesktopService.CreateNewBlueprint();
 		}
 
 		private void MenuItem_ClickOpenBlueprint(object sender, RoutedEventArgs e)
 		{
-
+			DesktopService.OpenBlueprint();
 		}
 
 		private void MenuItem_ClickSaveBlueprint(object sender, RoutedEventArgs e)
 		{
-
+			DesktopService.SaveBlueprint();
 		}
 
 		private void MenuItem_ClickSyncBlueprint(object sender, RoutedEventArgs e)
 		{
-
+			DesktopService.SyncBlueprint();
 		}
 		#endregion
 
@@ -153,6 +144,7 @@ namespace DevCompanion.Desktop.Components
 		#endregion
 
 		#region Object References
+		private IDesktopService DesktopService { get; }
 		private IDesktopWindow DesktopWindow { get; }
 		private IAppSettings AppSettings { get; }
 		#endregion

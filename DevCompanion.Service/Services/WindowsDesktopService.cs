@@ -40,6 +40,22 @@ namespace DevCompanion.Service
 			ServiceTask = null;
 		}
 
+		public void CreateNewBlueprint()
+		{
+		}
+
+		public void OpenBlueprint()
+		{
+		}
+
+		public void SaveBlueprint()
+		{
+		}
+
+		public void SyncBlueprint()
+		{
+		}
+
 		private void SetStartupContent()
 		{
 			DesktopWindow.ChangeContentPage(Constants.ContentPage.FirstStartup);
