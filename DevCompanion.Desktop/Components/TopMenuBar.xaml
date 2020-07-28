@@ -31,6 +31,6 @@
 				</MenuItem>
 			</MenuItem>
 		</Menu>
-		<DockPanel DockPanel.Dock="Top" Height="25" Background="Gray" />
+		<DockPanel DockPanel.Dock="Top" Height="25" Background="#111" />
 	</DockPanel>
 </UserControl>

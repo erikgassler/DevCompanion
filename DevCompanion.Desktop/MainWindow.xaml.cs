@@ -94,5 +94,10 @@ namespace DevCompanion.Desktop
 			GC.SuppressFinalize(this);
 		}
 		#endregion
+
+		private void ScrollViewer_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+		{
+
+		}
 	}
 }
