@@ -33,9 +33,9 @@ When opening the application for the first time, the user should be presented wi
 
 ### Setting URL for Cloud Storage API Endpoint
 To enable Cloud Storage, user will need to update setting.
-- User will set Cloud Storage API URL field in Settings -> Cloud -> API URL.
+- User will set Cloud Storage API URL and License fields in Settings -> Cloud -> *.
 - Dev Companion will validate syntax and then ping URL to confirm valid response.
-- When valid, API URL will be saved to user environment variable for Dev Companion to load endpoint from on subsequent loads.
+- When valid, API URL will be saved to app registry for Dev Companion to load settings from on subsequent loads.
 
 ### Creating a new Blueprint.
 Blueprints are displayed as a list of units or steps.
