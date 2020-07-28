@@ -113,29 +113,31 @@ namespace DevCompanion.Desktop.Components
 		#region Menu Setup from loaded settings
 		private void ApplySettings()
 		{
-			ApplyCloudAPIEndpointSetting();
-			ApplyCloudAPILicenseSetting();
+			ConfigureUpdatingStringSettings(
+				this.LocalEncryptionKey, 
+				AppSettings.LocalEncryptionKey, 
+				newValue => AppSettings.LocalEncryptionKey = newValue
+				);
+			ConfigureUpdatingStringSettings(
+				this.CloudStorageAPIEndpoint,
+				AppSettings.CloudAPIEndpoint,
+				newValue => AppSettings.CloudAPIEndpoint = newValue
+				);
+			ConfigureUpdatingStringSettings(
+				this.CloudStorageAPILicense,
+				AppSettings.CloudAPILicense,
+				newValue => AppSettings.CloudAPILicense = newValue
+				);
 			ApplyAutoSyncSetting();
 			LoadBlueprintListItems();
 		}
-		private void ApplyCloudAPIEndpointSetting()
+
+		private void ConfigureUpdatingStringSettings(MenuItemTextInput input, string loadedValue, Action<string> onSave)
 		{
-			this.CloudStorageAPIEndpoint.RefValue = AppSettings.CloudAPIEndpoint;
-			this.CloudStorageAPIEndpoint.RefValueUpdated += CloudStorageAPIEndpoint_RefValueUpdated;
+			input.RefValue = loadedValue;
+			input.RefValueUpdated += (object sender, EventArgs e) => onSave(input.RefValue);
 		}
-		private void CloudStorageAPIEndpoint_RefValueUpdated(object sender, EventArgs e)
-		{
-			AppSettings.CloudAPIEndpoint = ((MenuItemTextInput)sender).RefValue;
-		}
-		private void ApplyCloudAPILicenseSetting()
-		{
-			this.CloudStorageAPILicense.RefValue = AppSettings.CloudAPILicense;
-			this.CloudStorageAPILicense.RefValueUpdated += CloudStorageAPILicense_RefValueUpdated;
-		}
-		private void CloudStorageAPILicense_RefValueUpdated(object sender, EventArgs e)
-		{
-			AppSettings.CloudAPILicense = ((MenuItemTextInput)sender).RefValue;
-		}
+
 		private void ApplyAutoSyncSetting()
 		{
 			this.AutoSyncBlueprintToggle.IsChecked = AppSettings.EnableAutoSyncForCloudBlueprints;

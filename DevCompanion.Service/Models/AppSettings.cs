@@ -9,6 +9,7 @@
 			FileSystem = fileSystem;
 		}
 
+		public string LocalEncryptionKey { get => GetValue("LocalEncryptionKey", ""); set => SetValue("LocalEncryptionKey", value); }
 		public bool EnableAutoSyncForCloudBlueprints { get => GetValue("EnableAutoSyncForCloudBlueprints", false); set => SetValue("EnableAutoSyncForCloudBlueprints", value.ToString()); }
 		public string CloudAPIEndpoint { get => GetValue("CloudAPIEndpoint", ""); set => SetValue("CloudAPIEndpoint", value); }
 		public string CloudAPILicense { get => GetValue("CloudAPILicense", ""); set => SetValue("CloudAPILicense", value); }

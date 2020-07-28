@@ -52,10 +52,19 @@ namespace DevCompanion.BuildTests
 						.Returns(true);
 				}));
 
+			// Cloud License
+			string savingValue = "CloudLicenseValue";
 			Assert.Equal("", appSettings.CloudAPILicense);
-			appSettings.CloudAPILicense = "Test";
-			Assert.Equal("Test", fileSystem["CloudAPILicense"]);
-			Assert.Equal("Test", appSettings.CloudAPILicense);
+			appSettings.CloudAPILicense = savingValue;
+			Assert.Equal(savingValue, fileSystem["CloudAPILicense"]);
+			Assert.Equal(savingValue, appSettings.CloudAPILicense);
+
+			// Local Encryption Key
+			savingValue = "LocalEncValue";
+			Assert.Equal("", appSettings.LocalEncryptionKey);
+			appSettings.LocalEncryptionKey = savingValue;
+			Assert.Equal(savingValue, fileSystem["LocalEncryptionKey"]);
+			Assert.Equal(savingValue, appSettings.LocalEncryptionKey);
 		}
 	}
 }
