@@ -9,7 +9,7 @@ namespace DevCompanion.BuildTests.Services
 		[Fact]
 		public async Task VerifyMemoryFileSystemDoesNotBreak()
 		{
-			MemoryFileSystem service = new MemoryFileSystem();
+			PlaceholderFileSystem service = new PlaceholderFileSystem();
 			Assert.False(service.Exists(service.GetFullPath("/")));
 			Assert.Equal("", await service.ReadAllTextAsync(""));
 			service.SetRegistryValue("TestKey", "One");

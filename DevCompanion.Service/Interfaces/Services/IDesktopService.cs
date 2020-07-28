@@ -2,7 +2,6 @@
 {
 	public interface IDesktopService
 	{
-		void InitializeDesktop(IDesktopWindow window);
 		void StopDesktopServices();
 		void CreateNewBlueprint();
 		void OpenBlueprint();

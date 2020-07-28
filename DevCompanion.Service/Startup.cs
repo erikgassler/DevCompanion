@@ -13,7 +13,17 @@ namespace DevCompanion.Service
 			return Instance.GetProviderService<T>();
 		}
 
+		/// <summary>
+		/// Set by Client IDesktopWindow control to replace Placeholder instances with Client instances.
+		/// </summary>
 		public static Action<IServiceCollection> ClientServices { get; set; }
+
+		public delegate void HandleServicesReady(ServiceProvider provider);
+		public static event HandleServicesReady OnServicesReady;
+		public static void DesktopServicesAreReady()
+		{
+			OnServicesReady.Invoke((ServiceProvider)Instance.Provider);
+		}
 
 		/// <summary>
 		/// Method to call when app is closing to save any state and dispose of disposable objects.
@@ -73,7 +83,8 @@ namespace DevCompanion.Service
 		private void SetupModelServices(IServiceCollection services)
 		{
 			services.AddTransient<IBlueprint, Blueprint>();
-			services.AddSingleton<IFileSystem, MemoryFileSystem>();
+			services.AddSingleton<IFileSystem, PlaceholderFileSystem>();
+			services.AddSingleton<IDesktopWindow, PlaceholderDesktopWindow>();
 			services.AddTransient<IUnitTypeAzureAppConfig, UnitTypeAzureAppConfig>();
 			services.AddTransient<IUnitTypeAzureKeyVault, UnitTypeAzureKeyVault>();
 			services.AddTransient<IUnitTypeBlueprint, UnitTypeBlueprint>();

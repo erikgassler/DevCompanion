@@ -1,5 +1,6 @@
 ﻿using DevCompanion.Service;
 using DevCompanion.Service.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,9 +15,14 @@ namespace DevCompanion.Desktop.Components
 		public TopMenuBar()
 		{
 			InitializeComponent();
-			DesktopWindow = (IDesktopWindow)Application.Current.MainWindow;
-			AppSettings = Startup.GetService<IAppSettings>();
-			DesktopService = Startup.GetService<IDesktopService>();
+			Startup.OnServicesReady += Startup_OnServicesReady;
+		}
+
+		private void Startup_OnServicesReady(ServiceProvider provider)
+		{
+			AppSettings = provider.GetService<IAppSettings>();
+			DesktopService = provider.GetService<IDesktopService>();
+			DesktopWindow = provider.GetService<IDesktopWindow>();
 			SetupEventHandlers();
 			ApplySettings();
 		}
@@ -144,9 +150,9 @@ namespace DevCompanion.Desktop.Components
 		#endregion
 
 		#region Object References
-		private IDesktopService DesktopService { get; }
-		private IDesktopWindow DesktopWindow { get; }
-		private IAppSettings AppSettings { get; }
+		private IDesktopService DesktopService { get; set; }
+		private IDesktopWindow DesktopWindow { get; set; }
+		private IAppSettings AppSettings { get; set; }
 		#endregion
 	}
 }

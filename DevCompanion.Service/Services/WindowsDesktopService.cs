@@ -1,4 +1,5 @@
 ﻿using DevCompanion.Service.Interfaces;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,19 +8,14 @@ namespace DevCompanion.Service
 {
 	public class WindowsDesktopService : IDesktopService
 	{
-		public WindowsDesktopService()
+		public WindowsDesktopService(
+			IServiceProvider serviceProvider,
+			IDesktopWindow window
+			)
 		{
-
-		}
-
-		/// <summary>
-		/// Called once when the application has started and is opening the main window.
-		/// </summary>
-		/// <param name="window"></param>
-		public void InitializeDesktop(IDesktopWindow window)
-		{
-			window.UpdateStatus("Initializing services!");
 			DesktopWindow = window;
+			ServiceProvider = serviceProvider;
+			window.UpdateStatus("Initializing services!");
 			SetStartupContent();
 			RunServices();
 			window.UpdateStatus("Services initialized!");
@@ -42,6 +38,8 @@ namespace DevCompanion.Service
 
 		public void CreateNewBlueprint()
 		{
+			IBlueprint blueprint = (IBlueprint)ServiceProvider.GetService(typeof(IBlueprint));
+			DesktopWindow.LoadBlueprint(blueprint);
 		}
 
 		public void OpenBlueprint()
@@ -90,6 +88,7 @@ namespace DevCompanion.Service
 		private Task ServiceTask { get; set; }
 		private bool ReadyToCloseApp { get; set; } = false;
 		private bool ServicesAreRunning { get; set; } = false;
+		private IServiceProvider ServiceProvider { get; }
 		private IDesktopWindow DesktopWindow { get; set; }
 	}
 }

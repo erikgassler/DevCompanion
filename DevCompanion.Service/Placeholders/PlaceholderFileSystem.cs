@@ -7,7 +7,7 @@ namespace DevCompanion.Service
 	/// This is a placeholder IFileSystem to assure one is set by default for unit tests and Visual Studio tooling.
 	/// UI Projects should replace this service with an appropriate FileSystem class to access OS services.
 	/// </summary>
-	public class MemoryFileSystem : IFileSystem
+	public class PlaceholderFileSystem : IFileSystem
 	{
 		public bool Exists(string filePath)
 		{

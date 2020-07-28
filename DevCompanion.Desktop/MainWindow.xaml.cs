@@ -1,6 +1,8 @@
 ﻿using DevCompanion.Desktop.StaticContent;
 using DevCompanion.Service;
 using DevCompanion.Service.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,13 +20,18 @@ namespace DevCompanion.Desktop
 
 		public MainWindow()
 		{
+			Startup.ClientServices = services =>
+			{
+				services.Replace(new ServiceDescriptor(typeof(IFileSystem), typeof(FileSystem), ServiceLifetime.Singleton));
+				services.Replace(new ServiceDescriptor(typeof(IDesktopWindow), this));
+			};
 			InitializeComponent();
 			UpdateProcessingProgress(-1);
-			DesktopService = Startup.GetService<IDesktopService>();
 			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
 			Uri imagePath = new Uri("Logo_Watermark.png", UriKind.Relative);
 			BackgroundImage.ImageSource = new BitmapImage(imagePath);
-			DesktopService.InitializeDesktop(this);
+			DesktopService = Startup.GetService<IDesktopService>();
+			Startup.DesktopServicesAreReady();
 		}
 		#region Toolbar Dragging
 
@@ -84,6 +91,26 @@ namespace DevCompanion.Desktop
 			}
 		}
 
+		public void LoadBlueprint(IBlueprint blueprint)
+		{
+
+		}
+
+		public void OpenBlueprint()
+		{
+
+		}
+
+		public void SaveBlueprint()
+		{
+
+		}
+
+		public void SyncBlueprint()
+		{
+
+		}
+
 		public void CloseApplication()
 		{
 			DesktopService?.StopDesktopServices();
@@ -127,7 +154,6 @@ namespace DevCompanion.Desktop
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
-
 		#endregion
 	}
 }
