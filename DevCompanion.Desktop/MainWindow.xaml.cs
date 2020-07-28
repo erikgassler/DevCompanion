@@ -29,11 +29,15 @@ namespace DevCompanion.Desktop
 		public MainWindow()
 		{
 			InitializeComponent();
+			UpdateProcessingProgress(20);
 			DesktopService = Startup.GetService<IDesktopService>();
+			UpdateProcessingProgress(30);
 			AttachStartupContent();
+			UpdateProcessingProgress(50);
 			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
 			Uri imagePath = new Uri("Logo_Watermark.png", UriKind.Relative);
 			BackgroundImage.ImageSource = new BitmapImage(imagePath);
+			UpdateProcessingProgress(-1);
 		}
 		#region Toolbar Dragging
 
@@ -52,6 +56,17 @@ namespace DevCompanion.Desktop
 		public void UpdateStatus(string status)
 		{
 			this.LatestStatusUpdate.Text = status;
+		}
+
+		/// <summary>
+		/// set with a range from 0 to 100 to display.
+		/// Set to -1 to hide.
+		/// </summary>
+		/// <param name="percent"></param>
+		public void UpdateProcessingProgress(int percent)
+		{
+			ProcessingProgress.Visibility = (percent < 0 || percent > 100) ? Visibility.Collapsed : Visibility.Visible;
+			ProcessingProgress.Value = percent;
 		}
 
 		private void AttachStartupContent()

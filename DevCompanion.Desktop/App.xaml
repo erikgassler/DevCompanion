@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:DevCompanion.Desktop"
              StartupUri="MainWindow.xaml">
 	<Application.Resources>
+		<Color x:Key="AppPrimaryColor">#113377</Color>
+		<Color x:Key="AppPrimaryOffsest">#FFFFFF</Color>
 		<SolidColorBrush x:Key="Menu.Static.Background" Color="#113377"/>
 		<SolidColorBrush x:Key="Menu.Static.Foreground" Color="White"/>
 		<SolidColorBrush x:Key="Menu.Static.Border" Color="#999999"/>

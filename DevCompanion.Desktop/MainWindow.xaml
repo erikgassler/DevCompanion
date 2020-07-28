@@ -28,13 +28,16 @@
 		</DockPanel>
 		<StatusBar DockPanel.Dock="Bottom" FontSize="10">
 			<StatusBar.Background>
-				<SolidColorBrush Color="AliceBlue" />
+				<SolidColorBrush Color="{DynamicResource AppPrimaryColor}" />
 			</StatusBar.Background>
+			<StatusBar.Foreground>
+				<SolidColorBrush Color="{DynamicResource AppPrimaryOffsest}" />
+			</StatusBar.Foreground>
 			<StatusBarItem>
 				<TextBlock x:Name="LatestStatusUpdate" Text="" />
 			</StatusBarItem>
-			<StatusBarItem HorizontalAlignment="Right">
-				<ProgressBar x:Name="ProcessingProgress" Value="70" Width="100" Height="8" />
+			<StatusBarItem HorizontalAlignment="Right" Padding="0 0 30 0">
+				<ProgressBar x:Name="ProcessingProgress" Value="10" Width="100" Height="8" />
 			</StatusBarItem>
 		</StatusBar>
 		<ScrollViewer DockPanel.Dock="Top" FontSize="16" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
