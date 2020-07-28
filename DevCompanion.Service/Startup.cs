@@ -56,6 +56,7 @@ namespace DevCompanion.Service
 			SetupClientServices(services);
 			SetupAppConfigurations(services);
 			SetupModelServices(services);
+			// This goes last so UI can replace services if needed
 			ClientServices?.Invoke(services);
 			return services;
 		}
@@ -72,6 +73,7 @@ namespace DevCompanion.Service
 		private void SetupModelServices(IServiceCollection services)
 		{
 			services.AddTransient<IBlueprint, Blueprint>();
+			services.AddSingleton<IFileSystem, MemoryFileSystem>();
 			services.AddTransient<IUnitTypeAzureAppConfig, UnitTypeAzureAppConfig>();
 			services.AddTransient<IUnitTypeAzureKeyVault, UnitTypeAzureKeyVault>();
 			services.AddTransient<IUnitTypeBlueprint, UnitTypeBlueprint>();

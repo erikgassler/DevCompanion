@@ -11,6 +11,7 @@
     <RepositoryUrl>https://github.com/erikgassler/DevCompanion</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <Platforms>AnyCPU;x64</Platforms>
+    <PackageId>Dev Companion</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

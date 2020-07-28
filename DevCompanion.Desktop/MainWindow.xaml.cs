@@ -22,22 +22,19 @@ namespace DevCompanion.Desktop
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window, IDisposable
+	public partial class MainWindow : Window, IDesktopWindow, IDisposable
 	{
 		private bool disposedValue;
 
 		public MainWindow()
 		{
 			InitializeComponent();
-			UpdateProcessingProgress(20);
+			UpdateProcessingProgress(-1);
 			DesktopService = Startup.GetService<IDesktopService>();
-			UpdateProcessingProgress(30);
-			AttachStartupContent();
-			UpdateProcessingProgress(50);
 			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
 			Uri imagePath = new Uri("Logo_Watermark.png", UriKind.Relative);
 			BackgroundImage.ImageSource = new BitmapImage(imagePath);
-			UpdateProcessingProgress(-1);
+			DesktopService.InitializeDesktop(this);
 		}
 		#region Toolbar Dragging
 
@@ -55,7 +52,10 @@ namespace DevCompanion.Desktop
 
 		public void UpdateStatus(string status)
 		{
-			this.LatestStatusUpdate.Text = status;
+			this.Dispatcher.Invoke(() =>
+			{
+				this.LatestStatusUpdate.Text = status;
+			});
 		}
 
 		/// <summary>
@@ -65,17 +65,45 @@ namespace DevCompanion.Desktop
 		/// <param name="percent"></param>
 		public void UpdateProcessingProgress(int percent)
 		{
-			ProcessingProgress.Visibility = (percent < 0 || percent > 100) ? Visibility.Collapsed : Visibility.Visible;
-			ProcessingProgress.Value = percent;
+			this.Dispatcher.Invoke(() =>
+			{
+				ProcessingProgress.Visibility = (percent < 0 || percent > 100) ? Visibility.Collapsed : Visibility.Visible;
+				ProcessingProgress.Value = percent;
+			});
 		}
 
-		private void AttachStartupContent()
+		public void ChangeContentPage(Constants.ContentPage page)
 		{
-			FirstStartup startup = new FirstStartup();
-			MainContentContainer.Children.Add(startup);
+			lock (LockPageSwap)
+			{
+				if (page == CurrentPage) { return; }
+				CurrentPage = page;
+				if (CurrentPageControl != null)
+				{
+					MainContentContainer.Children.Remove(CurrentPageControl);
+				}
+				switch (page)
+				{
+					case Constants.ContentPage.FirstStartup:
+					default:
+						CurrentPage = Constants.ContentPage.FirstStartup;
+						CurrentPageControl = new FirstStartup();
+						break;
+				}
+				MainContentContainer.Children.Add(CurrentPageControl);
+			}
 		}
 
+		public void CloseApplication()
+		{
+			DesktopService?.StopDesktopServices();
+			Startup.CloseServices();
+			this.Close();
+		}
 
+		private object LockPageSwap { get; } = new object();
+		private Constants.ContentPage CurrentPage { get; set; }
+		private UserControl CurrentPageControl { get; set; }
 		private IDesktopService DesktopService { get; set; }
 
 		#region IDisposable
@@ -86,6 +114,7 @@ namespace DevCompanion.Desktop
 				if (disposing)
 				{
 					// TODO: dispose managed state (managed objects)
+					DesktopService?.StopDesktopServices();
 					Startup.CloseServices();
 				}
 
@@ -108,11 +137,7 @@ namespace DevCompanion.Desktop
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
+
 		#endregion
-
-		private void ScrollViewer_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-		{
-
-		}
 	}
 }

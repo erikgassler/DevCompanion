@@ -1,5 +1,6 @@
 ﻿using DevCompanion.Service;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Windows;
 
 namespace DevCompanion.Desktop
@@ -14,7 +15,7 @@ namespace DevCompanion.Desktop
 		{
 			Service.Startup.ClientServices = services =>
 			{
-				services.AddSingleton<IFileSystem, FileSystem>();
+				services.Replace(new ServiceDescriptor(typeof(IFileSystem), typeof(FileSystem), ServiceLifetime.Singleton));
 			};
 		}
 	}

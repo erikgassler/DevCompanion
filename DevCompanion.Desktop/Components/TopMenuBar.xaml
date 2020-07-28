@@ -15,14 +15,14 @@
 		<Menu Style="{DynamicResource MenuStyleDefault}" DockPanel.Dock="Left" FontSize="14" Padding="0 2 0 0" Height="26">
 			<Image Source="/Logo_64.png" Height="16" />
 			<MenuItem Style="{DynamicResource MenuItemDefault}" Header="_File">
-				<MenuItem Header="_New Blueprint" />
-				<MenuItem Header="_Open Blueprint" />
-				<MenuItem Header="_Save Blueprint" IsEnabled="False" />
-				<MenuItem Header="_Sync Blueprint" IsEnabled="False" />
+				<MenuItem Header="_New Blueprint" Click="MenuItem_ClickCreateBlueprint" />
+				<MenuItem Header="_Open Blueprint" Click="MenuItem_ClickOpenBlueprint" />
+				<MenuItem Header="_Save Blueprint" Click="MenuItem_ClickSaveBlueprint" IsEnabled="False" />
+				<MenuItem Header="_Sync Blueprint" Click="MenuItem_ClickSyncBlueprint" IsEnabled="False" />
 				<Separator />
 				<MenuItem Header="_Exit" Click="MenuItem_ClickExit" />
 			</MenuItem>
-			<MenuItem Header="_Blueprints" Name="BlueprintList" Binding.SourceUpdated="MenuItem_BlueprintListUpdated"></MenuItem>
+			<MenuItem Header="_Blueprints" Name="BlueprintList"></MenuItem>
 			<MenuItem Header="_Settings">
 				<MenuItem Header="_Cloud" StaysOpenOnClick="True">
 					<local:MenuItemTextInput x:Name="CloudStorageAPIEndpoint" DisplayText="Cloud Endpoint" />

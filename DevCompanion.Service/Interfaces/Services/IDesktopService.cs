@@ -6,5 +6,7 @@ namespace DevCompanion.Service.Interfaces
 {
 	public interface IDesktopService
 	{
+		void InitializeDesktop(IDesktopWindow window);
+		void StopDesktopServices();
 	}
 }
