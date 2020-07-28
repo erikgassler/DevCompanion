@@ -1,5 +1,5 @@
+![Dev Companion Logo](DevCompanion.Desktop/Logo_300.png)
 # Dev Companion
-
 This project is a desktop application that will give developers a tool to greatly reduce the amount of time needed to configure and deploy locally hosted cloud apps.
 
 A key feature of Dev Companion is the ability to allow teams and developers to create and share onboarding helpers to help new team members get setup quickly, and help assure everyone stays in sync as project configurations are changed.
