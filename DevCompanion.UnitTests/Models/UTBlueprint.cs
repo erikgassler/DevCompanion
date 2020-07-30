@@ -1,6 +1,7 @@
 ﻿using DevCompanion.Service;
 using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DevCompanion.BuildTests.Models
@@ -23,7 +24,7 @@ namespace DevCompanion.BuildTests.Models
 		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.Blueprint)]
 		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.CommandPromptScript)]
 		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.Workflow)]
-		public void VerifyBlueprintLifeCycle(Constants.UnitFlag flag, Constants.UnitStage stage, Constants.UnitType type)
+		public async Task VerifyBlueprintLifeCycle(Constants.UnitFlag flag, Constants.UnitStage stage, Constants.UnitType type)
 		{
 			IBlueprint createdBlueprint = new Blueprint();
 			createdBlueprint.Units.Add(new BaseBlueprintUnit()
@@ -42,6 +43,8 @@ namespace DevCompanion.BuildTests.Models
 			Assert.Equal(flag, loadedBlueprint.Units[0].UnitFlag);
 			Assert.Equal(stage, loadedBlueprint.Units[0].UnitState);
 			Assert.Equal(type, loadedBlueprint.Units[0].UnitType);
+			Assert.False(await loadedBlueprint.Units[0].RunProcessor());
+			Assert.False(await loadedBlueprint.Units[0].RunValidator());
 		}
 	}
 }

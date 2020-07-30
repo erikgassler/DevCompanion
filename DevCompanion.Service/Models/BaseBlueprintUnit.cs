@@ -10,14 +10,10 @@ namespace DevCompanion.Service
 
 		public virtual Constants.UnitStage UnitState { get; set; }
 
-		public virtual Task<bool> RunProcessor()
-		{
-			return Task.FromResult(false);
-		}
+		public string DataContent { get; set; }
 
-		public virtual Task<bool> RunValidator()
-		{
-			return Task.FromResult(false);
-		}
+		public virtual Task<bool> RunProcessor() { return Task.FromResult(false); }
+
+		public virtual Task<bool> RunValidator() { return Task.FromResult(false); }
 	}
 }

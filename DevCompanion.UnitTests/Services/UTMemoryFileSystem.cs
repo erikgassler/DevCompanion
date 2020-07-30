@@ -11,7 +11,7 @@ namespace DevCompanion.BuildTests.Services
 		{
 			PlaceholderFileSystem service = new PlaceholderFileSystem();
 			Assert.False(service.Exists(service.GetFullPath("./")));
-			Assert.Equal("", await service.ReadAllTextAsync(""));
+			Assert.Equal("", await service.ReadAllText(""));
 			service.SetRegistryValue("TestKey", "One");
 			Assert.True(service.TryGetRegistryValue("TestKey", out string result));
 			Assert.Equal("One", result);

@@ -29,13 +29,13 @@ namespace DevCompanion.Service
 				.Replace(@"\", "/");
 		}
 
-		public Task<string> ReadAllTextAsync(string filePath)
+		public string ReadAllText(string filePath)
 		{
 			if (Files.ContainsKey(filePath))
 			{
-				return Task.FromResult(Files[filePath]);
+				return Files[filePath];
 			}
-			return Task.FromResult("");
+			return "";
 		}
 
 		public void SetRegistryValue(string key, string value)

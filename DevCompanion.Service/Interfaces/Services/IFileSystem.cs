@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace DevCompanion.Service
+﻿namespace DevCompanion.Service
 {
 	/// <summary>
 	/// Wrapper for OS file system interactions needed by services.
@@ -14,6 +11,6 @@ namespace DevCompanion.Service
 		string GetDirectoryName(string path);
 		bool TryGetRegistryValue(string key, out string value);
 		void SetRegistryValue(string key, string value);
-		Task<string> ReadAllTextAsync(string filePath);
+		string ReadAllText(string filePath);
 	}
 }

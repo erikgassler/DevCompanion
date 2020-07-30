@@ -5,10 +5,13 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:local="clr-namespace:DevCompanion.Desktop.UnitTypes"
+	xmlns:components="clr-namespace:DevCompanion.Desktop.Components"
 	mc:Ignorable="d" 
-	d:DesignHeight="250" d:DesignWidth="800">
+	d:DesignHeight="100" d:DesignWidth="800">
 	<DockPanel LastChildFill="True">
 		<local:ControlUnitToolbar x:Name="ControlToolbar" DockPanel.Dock="Top" />
-		<DockPanel />
+		<DockPanel DockPanel.Dock="Top">
+			<RichTextBox x:Name="ControlMainContent" AcceptsReturn="True" AcceptsTab="True" AllowDrop="True" AutoWordSelection="True" Focusable="True" />
+		</DockPanel>
 	</DockPanel>
 </local:ControlBaseUnit>

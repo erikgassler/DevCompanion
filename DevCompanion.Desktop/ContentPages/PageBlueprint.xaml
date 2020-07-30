@@ -12,7 +12,7 @@
 		<DockPanel DockPanel.Dock="Top">
 			<DockPanel DockPanel.Dock="Left">
 				<TextBlock FontSize="22" VerticalAlignment="Center">Blueprint:</TextBlock>
-				<components:MenuItemTextInput x:Name="BlueprintName" Margin="10 0 10 0" ToolTip="Click to edit name." Height="26" VerticalAlignment="Center" />
+				<components:EditableTextDisplay x:Name="BlueprintName" Margin="10 0 10 0" ToolTip="Click to edit name." Height="26" VerticalAlignment="Center" />
 			</DockPanel>
 			<DockPanel DockPanel.Dock="Right">
 				<DockPanel DockPanel.Dock="Top" HorizontalAlignment="Right">

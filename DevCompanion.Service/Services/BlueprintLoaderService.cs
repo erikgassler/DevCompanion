@@ -52,12 +52,13 @@ namespace DevCompanion.Service
 			return JsonConvert.SerializeObject(blueprintStorage);
 		}
 
-		public async Task<BlueprintStorage> LoadBlueprint(Guid blueprintId)
+		public Task<BlueprintStorage> LoadBlueprint(Guid blueprintId)
 		{
 			BlueprintRegistryItem item = RegistryItemListManager.GetRegistryItem(blueprintId);
-			if (item == null) { return null; }
-			BlueprintStorage storage = ConvertFromJSON(await FileSystem.ReadAllTextAsync(item.FilePath), item);
-			return storage;
+			if (item == null) { return Task.FromResult(null as BlueprintStorage); }
+			string json = FileSystem.ReadAllText(item.FilePath);
+			BlueprintStorage storage = ConvertFromJSON(json, item);
+			return Task.FromResult(storage);
 		}
 
 		private BlueprintStorage ConvertFromJSON(string fileJson, BlueprintRegistryItem item)

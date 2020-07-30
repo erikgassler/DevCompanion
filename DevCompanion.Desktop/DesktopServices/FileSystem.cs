@@ -61,9 +61,9 @@ namespace DevCompanion.Desktop
 				.Replace(@"\", "/");
 		}
 
-		public async Task<string> ReadAllTextAsync(string filePath)
+		public string ReadAllText(string filePath)
 		{
-			return await File.ReadAllTextAsync(filePath);
+			return File.ReadAllText(filePath);
 		}
 
 		public void SetRegistryValue(string key, string value)
