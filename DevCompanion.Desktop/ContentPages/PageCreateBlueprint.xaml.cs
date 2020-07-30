@@ -8,7 +8,7 @@ namespace DevCompanion.Desktop.ContentPages
 	/// <summary>
 	/// Interaction logic for PageCreateBlueprint.xaml
 	/// </summary>
-	public partial class PageCreateBlueprint : UserControl
+	public partial class PageCreateBlueprint : BaseContentPage
 	{
 		public PageCreateBlueprint(
 			IDesktopService desktopService,
@@ -22,6 +22,11 @@ namespace DevCompanion.Desktop.ContentPages
 			InitializeComponent();
 			SetupPage();
 		}
+
+		public override void UnloadForRemoval()
+		{
+		}
+
 		private void SetupPage()
 		{
 			SetupBlueprintName();

@@ -1,4 +1,5 @@
-﻿using DevCompanion.Service;
+﻿using DevCompanion.Desktop.UnitTypes;
+using DevCompanion.Service;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -9,7 +10,7 @@ namespace DevCompanion.Desktop.ContentPages
 	/// <summary>
 	/// Interaction logic for PageBlueprint.xaml
 	/// </summary>
-	public partial class PageBlueprint : UserControl
+	public partial class PageBlueprint : BaseContentPage
 	{
 		public PageBlueprint(
 			IDesktopService desktopService
@@ -20,7 +21,24 @@ namespace DevCompanion.Desktop.ContentPages
 			Blueprint = Storage.Blueprint;
 			InitializeComponent();
 			SetupPage();
+			Blueprint = DesktopService.ActiveBlueprintStorage.Blueprint;
+			RegisterEvents();
 			DesktopService.UpdateStatus($"Blueprint Loaded!");
+		}
+
+		public override void UnloadForRemoval()
+		{
+			DesktopService.OnUpdatedBlueprint -= DesktopService_OnUpdatedBlueprint;
+		}
+
+		private void RegisterEvents()
+		{
+			DesktopService.OnUpdatedBlueprint += DesktopService_OnUpdatedBlueprint;
+		}
+
+		private void DesktopService_OnUpdatedBlueprint(object sender, IBlueprint e)
+		{
+			SetupUnits();
 		}
 
 		private void SetupPage()
@@ -29,6 +47,7 @@ namespace DevCompanion.Desktop.ContentPages
 			BlueprintKey.Text = Storage.BlueprintRegistryItem.Key;
 			FileLocation.Text = Storage.BlueprintRegistryItem.FilePath;
 			SetupButtonBar();
+			SetupUnits();
 		}
 
 		private void SetupButtonBar()
@@ -37,11 +56,47 @@ namespace DevCompanion.Desktop.ContentPages
 			{
 				AddUnitTypeButtonToButtonBar(display, flag);
 			}
-			AddButtonToButtonBar("💻", "Save Blueprint", (sender, e) =>
+			AddButtonToButtonBar("💾", "Save Blueprint", (sender, e) =>
 			{
 				DesktopService.SaveBlueprint();
 			});
 
+		}
+
+		private void SetupUnits()
+		{
+			BlueprintUnits.Children.Clear();
+			int controlsAdded = 0;
+			foreach(BaseBlueprintUnit unit in Blueprint.Units)
+			{
+				controlsAdded += AddUnitToWorkspace(unit) ? 1 : 0;
+			}
+			if(controlsAdded == 0)
+			{
+				BlueprintUnits.Children.Add(new TextBlock()
+				{
+					Text = "This Blueprint doesn't contain any Units!"
+				});
+			}
+		}
+
+		private bool AddUnitToWorkspace(IBlueprintUnit unit)
+		{
+			ControlBaseUnit control = unit.UnitType switch
+			{
+				Constants.UnitType.AzureAppConfig => null,
+				Constants.UnitType.AzureKeyVault => null,
+				Constants.UnitType.Blueprint => null,
+				Constants.UnitType.CommandPromptScript => null,
+				Constants.UnitType.Documentation => new ControlUnitTypeDocumentation(unit),
+				Constants.UnitType.EnvironmentVariable => new ControlUnitTypeDocumentation(unit),
+				Constants.UnitType.PowerShellScript => null,
+				Constants.UnitType.Workflow => null,
+				_ => null
+			};
+			if(control == null) { return false; }
+			BlueprintUnits.Children.Add(control);
+			return true;
 		}
 
 		private (string display, Constants.UnitType flag)[] GetButtonBarList

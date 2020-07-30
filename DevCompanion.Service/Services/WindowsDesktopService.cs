@@ -127,23 +127,34 @@ namespace DevCompanion.Service
 			switch (unitType)
 			{
 				case Constants.UnitType.AzureAppConfig:
-
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeAzureAppConfig());
 					break;
 				case Constants.UnitType.AzureKeyVault:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeAzureKeyVault());
 					break;
 				case Constants.UnitType.Blueprint:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeBlueprint());
 					break;
 				case Constants.UnitType.CommandPromptScript:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeCommandPromptScript());
 					break;
 				case Constants.UnitType.Documentation:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeDocumentation());
 					break;
 				case Constants.UnitType.EnvironmentVariable:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeEnvironmentVariable());
 					break;
 				case Constants.UnitType.PowerShellScript:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypePowerShellScript());
 					break;
 				case Constants.UnitType.Workflow:
+					ActiveBlueprintStorage.Blueprint.Units.Add(new UnitTypeWorkflow());
 					break;
+				default:
+					UpdateStatus($"Whoops, unrecognized Unit type!");
+					return;
 			}
+			OnUpdatedBlueprint?.Invoke(this, ActiveBlueprintStorage.Blueprint);
 		}
 
 		public void SyncBlueprint()
@@ -153,7 +164,13 @@ namespace DevCompanion.Service
 
 		private void SetStartupContent()
 		{
-			ChangeContentPage(Constants.ContentPage.FirstStartup);
+			if(AppSettings.BlueprintList.Count == 0)
+			{
+				ChangeContentPage(Constants.ContentPage.FirstStartup);
+				return;
+			}
+			ChangeContentPage(Constants.ContentPage.Loading);
+			OpenBlueprint(AppSettings.BlueprintList[0].Id);
 		}
 
 		private void RunServices()

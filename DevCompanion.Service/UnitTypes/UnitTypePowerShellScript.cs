@@ -2,20 +2,20 @@
 
 namespace DevCompanion.Service
 {
-	public class UnitTypePowerShellScript : IUnitTypePowerShellScript
+	public class UnitTypePowerShellScript : BaseBlueprintUnit, IUnitTypePowerShellScript
 	{
-		public Constants.UnitType UnitType => Constants.UnitType.PowerShellScript;
+		public override Constants.UnitType UnitType => Constants.UnitType.PowerShellScript;
 
-		public Constants.UnitFlag UnitFlag { get; set; } = Constants.UnitFlag.Documentation;
+		public override Constants.UnitFlag UnitFlag { get; set; } = Constants.UnitFlag.Documentation;
 
-		public Constants.UnitStage UnitState { get; set; } = Constants.UnitStage.Processor;
+		public override Constants.UnitStage UnitState { get; set; } = Constants.UnitStage.Processor;
 
-		public async Task<bool> RunProcessor()
+		public override async Task<bool> RunProcessor()
 		{
 			return false;
 		}
 
-		public async Task<bool> RunValidator()
+		public override async Task<bool> RunValidator()
 		{
 			return false;
 		}

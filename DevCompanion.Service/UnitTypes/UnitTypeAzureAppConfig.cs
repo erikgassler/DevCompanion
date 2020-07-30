@@ -2,20 +2,20 @@
 
 namespace DevCompanion.Service
 {
-	public class UnitTypeAzureAppConfig : IUnitTypeAzureAppConfig
+	public class UnitTypeAzureAppConfig : BaseBlueprintUnit, IUnitTypeAzureAppConfig
 	{
-		public Constants.UnitType UnitType => Constants.UnitType.AzureAppConfig;
+		public override Constants.UnitType UnitType => Constants.UnitType.AzureAppConfig;
 
-		public Constants.UnitFlag UnitFlag { get; set; } = Constants.UnitFlag.Documentation;
+		public override Constants.UnitFlag UnitFlag { get; set; } = Constants.UnitFlag.Documentation;
 
-		public Constants.UnitStage UnitState { get; set; } = Constants.UnitStage.Processor;
+		public override Constants.UnitStage UnitState { get; set; } = Constants.UnitStage.Processor;
 
-		public async Task<bool> RunProcessor()
+		public override async Task<bool> RunProcessor()
 		{
 			return false;
 		}
 
-		public async Task<bool> RunValidator()
+		public override async Task<bool> RunValidator()
 		{
 			return false;
 		}

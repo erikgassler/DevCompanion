@@ -4,18 +4,18 @@ namespace DevCompanion.Service
 {
 	public class BaseBlueprintUnit : IBlueprintUnit
 	{
-		public Constants.UnitType UnitType { get; set; }
+		public virtual Constants.UnitType UnitType { get; set; }
 
-		public Constants.UnitFlag UnitFlag { get; set; }
+		public virtual Constants.UnitFlag UnitFlag { get; set; }
 
-		public Constants.UnitStage UnitState { get; set; }
+		public virtual Constants.UnitStage UnitState { get; set; }
 
-		public Task<bool> RunProcessor()
+		public virtual Task<bool> RunProcessor()
 		{
 			return Task.FromResult(false);
 		}
 
-		public Task<bool> RunValidator()
+		public virtual Task<bool> RunValidator()
 		{
 			return Task.FromResult(false);
 		}

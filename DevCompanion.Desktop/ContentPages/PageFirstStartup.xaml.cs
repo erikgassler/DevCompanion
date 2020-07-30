@@ -1,4 +1,5 @@
-﻿using DevCompanion.Service;
+﻿using DevCompanion.Desktop.ContentPages;
+using DevCompanion.Service;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
 
@@ -7,9 +8,9 @@ namespace DevCompanion.Desktop.StaticContent
 	/// <summary>
 	/// Interaction logic for FirstStartup.xaml
 	/// </summary>
-	public partial class FirstStartup : UserControl
+	public partial class PageFirstStartup : BaseContentPage
 	{
-		public FirstStartup(ServiceProvider provider)
+		public PageFirstStartup(ServiceProvider provider)
 		{
 			Provider = provider;
 			DesktopService = provider.GetService<IDesktopService>();
@@ -17,6 +18,10 @@ namespace DevCompanion.Desktop.StaticContent
 			InitializeComponent();
 			SetupPasswordField();
 			DesktopService.UpdateStatus("Get Started by creating or opening your first Blueprint!");
+		}
+
+		public override void UnloadForRemoval()
+		{
 		}
 
 		private void SetupPasswordField()

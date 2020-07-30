@@ -67,6 +67,7 @@ namespace DevCompanion.Desktop
 				{
 					if (CurrentPageControl != null)
 					{
+						CurrentPageControl.UnloadForRemoval();
 						MainContentContainer.Children.Remove(CurrentPageControl);
 					}
 					CurrentPageControl = page switch
@@ -75,7 +76,7 @@ namespace DevCompanion.Desktop
 						Constants.ContentPage.CreateBlueprint => new PageCreateBlueprint(DesktopService, FileSystem),
 						Constants.ContentPage.ViewBlueprintList => new PageBlueprintList(DesktopService, AppSettings),
 						Constants.ContentPage.ViewBlueprint => new PageBlueprint(DesktopService),
-						Constants.ContentPage.FirstStartup => new FirstStartup(Provider),
+						Constants.ContentPage.FirstStartup => new PageFirstStartup(Provider),
 						_ => new PageError() { Message = "Sorry! We didn't finish setting up this component yet." },
 					};
 					MainContentContainer.Children.Add(CurrentPageControl);
@@ -99,7 +100,7 @@ namespace DevCompanion.Desktop
 			this.Close();
 		}
 
-		private UserControl CurrentPageControl { get; set; }
+		private BaseContentPage CurrentPageControl { get; set; }
 		private ServiceProvider Provider { get; set; }
 		private IDesktopService DesktopService { get; set; }
 		private IFileSystem FileSystem { get; set; }
