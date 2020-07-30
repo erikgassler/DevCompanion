@@ -15,7 +15,7 @@ namespace DevCompanion.Service
 		{
 		}
 
-		public void LoadBlueprint(IBlueprint blueprint)
+		public void LoadBlueprintIntoNewStorageContainer(IBlueprint blueprint)
 		{
 		}
 

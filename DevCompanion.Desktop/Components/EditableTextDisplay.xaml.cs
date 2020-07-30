@@ -27,12 +27,21 @@ namespace DevCompanion.Desktop.Components
 			this.OpenEditor.Click += OpenEditor_Click;
 			this.CancelUpdate.Click += CancelUpdate_Click;
 			this.SaveChange.Click += SaveChange_Click;
+			this.GearIcon.Click += OpenEditor_Click;
 			DisableEditing();
+		}
+
+		public void ConfigureUpdatingStringSettings(Func<string> onLoad, Action<string> onSave)
+		{
+			this.RefValue = onLoad();
+			this.RefValueUpdated += (object sender, EventArgs e) => onSave(this.RefValue);
+			this.OnOpeningEditor += (object sender, TextBox field) => this.RefValue = onLoad();
 		}
 
 		private void EnableEditing()
 		{
 			OpenEditor.Visibility = Visibility.Collapsed;
+			GearIcon.Visibility = Visibility.Collapsed;
 			TextValue.Visibility = Visibility.Visible;
 			CancelUpdate.Visibility = Visibility.Visible;
 			SaveChange.Visibility = Visibility.Visible;
@@ -44,6 +53,7 @@ namespace DevCompanion.Desktop.Components
 			CancelUpdate.Visibility = Visibility.Collapsed;
 			SaveChange.Visibility = Visibility.Collapsed;
 			OpenEditor.Visibility = Visibility.Visible;
+			GearIcon.Visibility = Visibility.Visible;
 		}
 
 		private void SaveChange_Click(object sender, RoutedEventArgs e)
@@ -69,5 +79,7 @@ namespace DevCompanion.Desktop.Components
 		public event EventHandler<TextBox> OnOpeningEditor;
 		public string RefValue { get; set; }
 		public string DisplayText { get => (string)OpenEditor.Content; set => OpenEditor.Content = value; }
+		public int MaxLines { get => TextValue.MaxLines; set => TextValue.MaxLines = value; }
+		public int MinLines { get => TextValue.MinLines; set => TextValue.MinLines = value; }
 	}
 }

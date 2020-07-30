@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace DevCompanion.Service
 {
@@ -16,5 +17,14 @@ namespace DevCompanion.Service
 		/// Encrypted JSON data containing all Blueprint details.
 		/// </summary>
 		string Data { get; set; }
+
+		[JsonIgnore]
+		Constants.StorageType StorageType { get; }
+
+		[JsonIgnore]
+		IBlueprint Blueprint { get; }
+
+		[JsonIgnore]
+		IBlueprintRegistryItem BlueprintRegistryItem { get; set; }
 	}
 }

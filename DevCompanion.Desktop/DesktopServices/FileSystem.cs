@@ -8,14 +8,57 @@ namespace DevCompanion.Desktop
 {
 	public class FileSystem : IFileSystem
 	{
-		public bool Exists(string filePath)
+		public bool IsValidDirectory(string path)
 		{
-			return File.Exists(filePath);
+			if (string.IsNullOrWhiteSpace(path)) { return false; }
+			path = GetFullPath(path);
+			string test = path.Substring(path.Length - 5);
+			if (path.Substring(path.Length-5) == ".dcbp")
+			{
+				path = GetDirectoryName(path);
+			}
+			try
+			{
+				DirectoryInfo info = new DirectoryInfo(path);
+				if (info.Exists) { return true; }
+				info.Create();
+				if (!info.Exists) { return false; }
+				info.Delete(true);
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
+		}
+		public bool SaveFileToDirectory(string filePath, string json)
+		{
+			try
+			{
+				string fullPath = GetFullPath(filePath);
+				if (!IsValidDirectory(fullPath)) { return false; }
+				using FileStream stream = File.OpenWrite(fullPath);
+				using StreamWriter writer = new StreamWriter(stream);
+				writer.Write(json);
+				writer.Close();
+				stream.Close();
+				return true;
+			}
+			catch (Exception) { return false; }
 		}
 
 		public string GetFullPath(string partialPath)
 		{
-			return Path.GetFullPath(partialPath);
+			return Path.GetFullPath(partialPath)
+				.Replace(@"\\", "/")
+				.Replace(@"\", "/");
+		}
+
+		public string GetDirectoryName(string path)
+		{
+			return Path.GetDirectoryName(path)
+				.Replace(@"\\", "/")
+				.Replace(@"\", "/");
 		}
 
 		public async Task<string> ReadAllTextAsync(string filePath)

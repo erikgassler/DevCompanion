@@ -8,10 +8,12 @@ namespace DevCompanion.Service
 	/// </summary>
 	public interface IFileSystem
 	{
+		bool IsValidDirectory(string path);
+		bool SaveFileToDirectory(string filePath, string json);
 		string GetFullPath(string partialPath);
+		string GetDirectoryName(string path);
 		bool TryGetRegistryValue(string key, out string value);
 		void SetRegistryValue(string key, string value);
-		bool Exists(string filePath);
 		Task<string> ReadAllTextAsync(string filePath);
 	}
 }

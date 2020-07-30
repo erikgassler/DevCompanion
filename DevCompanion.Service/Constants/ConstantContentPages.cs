@@ -4,8 +4,12 @@
 	{
 		public enum ContentPage
 		{
-			FirstStartup = 1,
-			Blueprint = 2
+			Loading = 0,
+			Error = 1,
+			FirstStartup = 2,
+			CreateBlueprint = 3,
+			ViewBlueprint = 4,
+			ViewBlueprintList = 5
 		}
 	}
 }

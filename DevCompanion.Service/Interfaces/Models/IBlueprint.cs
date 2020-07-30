@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DevCompanion.Service
 {
@@ -6,5 +7,6 @@ namespace DevCompanion.Service
 	{
 		Guid Id { get; }
 		string Name { get; set; }
+		IList<BaseBlueprintUnit> Units { get; }
 	}
 }

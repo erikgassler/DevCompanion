@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
-namespace DevCompanion.Service.Interfaces.Services
+namespace DevCompanion.Service
 {
-	class IBlueprintLoaderService
+	public interface IBlueprintLoaderService
 	{
+		Task<bool> SaveBlueprint(IBlueprintStorage blueprintStorage);
+
+		Task<BlueprintStorage> LoadBlueprint(Guid blueprintId);
 	}
 }

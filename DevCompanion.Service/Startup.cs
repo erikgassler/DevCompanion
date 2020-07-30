@@ -1,5 +1,4 @@
-﻿using DevCompanion.Service.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace DevCompanion.Service
@@ -67,6 +66,9 @@ namespace DevCompanion.Service
 		private void SetupClientServices(IServiceCollection services)
 		{
 			services.AddSingleton<IDesktopService, WindowsDesktopService>();
+			services.AddSingleton<IBlueprintLoaderService, BlueprintLoaderService>();
+			services.AddSingleton<ICryptoService, CryptoService>();
+			services.AddSingleton<IBlueprintRegistryItemListManager, BlueprintRegistryItemListManager>();
 		}
 
 		private void SetupModelServices(IServiceCollection services)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace DevCompanion.Service
@@ -11,16 +12,29 @@ namespace DevCompanion.Service
 	{
 		public bool Exists(string filePath)
 		{
-			return false;
+			return Files.ContainsKey(filePath);
 		}
 
 		public string GetFullPath(string partialPath)
 		{
-			return $"Memory/{partialPath}";
+			return Path.GetFullPath(partialPath)
+				.Replace(@"\\", "/")
+				.Replace(@"\", "/");
+		}
+
+		public string GetDirectoryName(string path)
+		{
+			return Path.GetDirectoryName(path)
+				.Replace(@"\\", "/")
+				.Replace(@"\", "/");
 		}
 
 		public Task<string> ReadAllTextAsync(string filePath)
 		{
+			if (Files.ContainsKey(filePath))
+			{
+				return Task.FromResult(Files[filePath]);
+			}
 			return Task.FromResult("");
 		}
 
@@ -33,6 +47,20 @@ namespace DevCompanion.Service
 		{
 			return Registry.TryGetValue(key, out value);
 		}
-		private Dictionary<string, string> Registry = new Dictionary<string, string>();
+
+		public bool IsValidDirectory(string path)
+		{
+			// just assume any test directory is valid
+			return true;
+		}
+
+		public bool SaveFileToDirectory(string filePath, string json)
+		{
+			Files[filePath] = json;
+			return true;
+		}
+
+		private Dictionary<string, string> Files { get; } = new Dictionary<string, string>();
+		private Dictionary<string, string> Registry { get; } = new Dictionary<string, string>();
 	}
 }

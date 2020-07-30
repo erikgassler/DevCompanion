@@ -1,7 +1,8 @@
 ﻿using DevCompanion.Service;
-using DevCompanion.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,7 +23,8 @@ namespace DevCompanion.Desktop.Components
 		{
 			AppSettings = provider.GetService<IAppSettings>();
 			DesktopService = provider.GetService<IDesktopService>();
-			DesktopWindow = provider.GetService<IDesktopWindow>();
+			FileSystem = provider.GetService<IFileSystem>();
+			BlueprintLoaderService = provider.GetService<IBlueprintLoaderService>();
 			SetupEventHandlers();
 			ApplySettings();
 		}
@@ -30,7 +32,7 @@ namespace DevCompanion.Desktop.Components
 		#region Menu Click Handlers
 		private void MenuItem_ClickFirstStartupPage(object sender, RoutedEventArgs e)
 		{
-			DesktopWindow.ChangeContentPage(Constants.ContentPage.FirstStartup);
+			DesktopService.ChangeContentPage(Constants.ContentPage.FirstStartup);
 		}
 		private void AutoSyncBlueprintToggle_Click(object sender, RoutedEventArgs e)
 		{
@@ -38,7 +40,7 @@ namespace DevCompanion.Desktop.Components
 		}
 		private void MenuItem_ClickExit(object sender, RoutedEventArgs e)
 		{
-			DesktopWindow.CloseApplication();
+			DesktopService.CloseApplication();
 		}
 		private void MenuItem_ClickMinMaxResize(object sender, RoutedEventArgs e)
 		{
@@ -64,7 +66,7 @@ namespace DevCompanion.Desktop.Components
 
 		private void MenuItem_ClickOpenBlueprint(object sender, RoutedEventArgs e)
 		{
-			DesktopService.OpenBlueprint();
+			DesktopService.ChangeContentPage(Constants.ContentPage.ViewBlueprintList);
 		}
 
 		private void MenuItem_ClickSaveBlueprint(object sender, RoutedEventArgs e)
@@ -82,7 +84,7 @@ namespace DevCompanion.Desktop.Components
 		private void SetupEventHandlers()
 		{
 			Application.Current.MainWindow.StateChanged += MainWindow_StateChanged;
-			DesktopWindow.OnLoadedBlueprint += DesktopWindow_OnLoadedBlueprint;
+			DesktopService.OnLoadedBlueprint += DesktopWindow_OnLoadedBlueprint;
 		}
 
 		private void DesktopWindow_OnLoadedBlueprint(object sender, IBlueprint blueprint)
@@ -116,30 +118,25 @@ namespace DevCompanion.Desktop.Components
 		#region Menu Setup from loaded settings
 		private void ApplySettings()
 		{
-			ConfigureUpdatingStringSettings(
-				this.LocalEncryptionKey, 
+			this.DefaultSaveLocation.ConfigureUpdatingStringSettings(
+				() => string.IsNullOrWhiteSpace(AppSettings.DefaultSaveFolder) ? FileSystem.GetFullPath("./Blueprints") : AppSettings.DefaultSaveFolder,
+				newValue => AppSettings.DefaultSaveFolder = FileSystem.GetFullPath(newValue)
+				);
+			this.LocalEncryptionKey.ConfigureUpdatingStringSettings(
 				() => AppSettings.LocalEncryptionKey, 
 				newValue => AppSettings.LocalEncryptionKey = newValue
 				);
-			ConfigureUpdatingStringSettings(
-				this.CloudStorageAPIEndpoint,
+			this.CloudStorageAPIEndpoint.ConfigureUpdatingStringSettings(
 				() => AppSettings.CloudAPIEndpoint,
 				newValue => AppSettings.CloudAPIEndpoint = newValue
 				);
-			ConfigureUpdatingStringSettings(
-				this.CloudStorageAPILicense,
+			this.CloudStorageAPILicense.ConfigureUpdatingStringSettings(
 				() => AppSettings.CloudAPILicense,
 				newValue => AppSettings.CloudAPILicense = newValue
 				);
 			ApplyAutoSyncSetting();
-			LoadBlueprintListItems();
-		}
-
-		private void ConfigureUpdatingStringSettings(MenuItemTextInput input, Func<string> onLoad, Action<string> onSave)
-		{
-			input.RefValue = onLoad();
-			input.RefValueUpdated += (object sender, EventArgs e) => onSave(input.RefValue);
-			input.OnOpeningEditor += (object sender, TextBox field) => input.RefValue = onLoad();
+			AppSettings.OnUpdateBlueprintList += (_, list) => LoadBlueprintListItems(list);
+			LoadBlueprintListItems(AppSettings.BlueprintList.ToArray());
 		}
 
 		private void ApplyAutoSyncSetting()
@@ -148,14 +145,57 @@ namespace DevCompanion.Desktop.Components
 			this.AutoSyncBlueprintToggle.StaysOpenOnClick = true;
 			this.AutoSyncBlueprintToggle.Click += AutoSyncBlueprintToggle_Click;
 		}
-		private void LoadBlueprintListItems()
+		private void LoadBlueprintListItems(BlueprintRegistryItem[] list)
 		{
 			// Clear current list
 			this.BlueprintList.Items.Clear();
-			// Load with dummy items for now.
-			this.BlueprintList.Items.Add(new MenuItem() { Header = "_Dummy Blueprint 1" });
-			this.BlueprintList.Items.Add(new MenuItem() { Header = "_Dummy Blueprint 2" });
-			this.BlueprintList.Items.Add(new MenuItem() { Header = "_Dummy Blueprint 3" });
+			int addedCount = 0;
+			bool showMore = false;
+			foreach(BlueprintRegistryItem registryItem in list)
+			{
+				if(addedCount == 10) {
+					showMore = true;
+					break;
+				}
+				addedCount += AddMenuItemForBlueprintRegistryItem(registryItem) ? 1 : 0;
+			}
+			AddPlaceholderForBlueprintListIfEmpty(addedCount, showMore);
+		}
+
+		private bool AddMenuItemForBlueprintRegistryItem(BlueprintRegistryItem registryItem)
+		{
+			MenuItem menuItem = new MenuItem()
+			{
+				Header = $"_{registryItem.Name}"
+			};
+			menuItem.Click += async (object sender, RoutedEventArgs e) =>
+			{
+				DesktopService.OpenBlueprint(registryItem.Id);
+			};
+			this.BlueprintList.Items.Add(menuItem);
+			return true;
+		}
+
+		private void AddPlaceholderForBlueprintListIfEmpty(int addedCount, bool showMore)
+		{
+			if (showMore)
+			{
+				MenuItem showMoreButton = new MenuItem()
+				{
+					Header = "_View All"
+				};
+				showMoreButton.Click += (_, _) =>
+				{
+					DesktopService.ChangeContentPage(Constants.ContentPage.ViewBlueprintList);
+				};
+				this.BlueprintList.Items.Add(showMoreButton);
+				return;
+			}
+			if (addedCount > 0) { return; }
+			this.BlueprintList.Items.Add(new MenuItem()
+			{
+				Header = "_No Blueprints Found!"
+			});
 		}
 		#endregion
 
@@ -171,9 +211,10 @@ namespace DevCompanion.Desktop.Components
 		#endregion
 
 		#region Object References
+		private IFileSystem FileSystem { get; set; }
 		private IDesktopService DesktopService { get; set; }
-		private IDesktopWindow DesktopWindow { get; set; }
 		private IAppSettings AppSettings { get; set; }
+		private IBlueprintLoaderService BlueprintLoaderService { get; set; }
 		#endregion
 	}
 }

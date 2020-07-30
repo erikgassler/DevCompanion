@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:DevCompanion.Desktop.StaticContent"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
-	<DockPanel Margin="10" LastChildFill="True" Width="Auto">
+	<DockPanel LastChildFill="True" Width="Auto">
 		<TextBlock DockPanel.Dock="Top" FontSize="16" TextWrapping="WrapWithOverflow" Padding="5px">
 			Welcome to Dev Companion!
 		</TextBlock>

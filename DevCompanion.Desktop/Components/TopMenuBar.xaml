@@ -25,9 +25,10 @@
 			<MenuItem Header="_Blueprints" Name="BlueprintList"></MenuItem>
 			<MenuItem Header="_Settings">
 				<MenuItem Header="_Cloud" StaysOpenOnClick="True">
+					<local:MenuItemTextInput x:Name="DefaultSaveLocation" DisplayText="Default Save Location" ToolTip="Default folder to use for storing local Blueprint files." />
 					<local:MenuItemTextInput x:Name="LocalEncryptionKey" DisplayText="Local Saves Password" ToolTip="Password used for encrypting and decrypting your locally saved Blueprints." />
-					<local:MenuItemTextInput x:Name="CloudStorageAPIEndpoint" DisplayText="Cloud Endpoint" />
-					<local:MenuItemTextInput x:Name="CloudStorageAPILicense" DisplayText="Cloud License" />
+					<local:MenuItemTextInput x:Name="CloudStorageAPIEndpoint" DisplayText="Cloud Endpoint" ToolTip="URL for Cloud API endpoint used for syncing Blueprints to the cloud." />
+					<local:MenuItemTextInput x:Name="CloudStorageAPILicense" DisplayText="Cloud License" ToolTip="License key for Cloud API." />
 					<MenuItem Header="_Enable Auto-Sync" Name="AutoSyncBlueprintToggle" ToolTip="Enable auto-syncing blueprints when changes are detected." IsCheckable="True" />
 				</MenuItem>
 			</MenuItem>

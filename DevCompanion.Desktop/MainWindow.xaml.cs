@@ -1,7 +1,6 @@
 ﻿using DevCompanion.Desktop.ContentPages;
 using DevCompanion.Desktop.StaticContent;
 using DevCompanion.Service;
-using DevCompanion.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
@@ -17,8 +16,6 @@ namespace DevCompanion.Desktop
 	/// </summary>
 	public partial class MainWindow : Window, IDesktopWindow, IDisposable
 	{
-		private bool disposedValue;
-
 		public MainWindow()
 		{
 			Startup.ClientServices = services =>
@@ -27,15 +24,64 @@ namespace DevCompanion.Desktop
 				services.Replace(new ServiceDescriptor(typeof(IDesktopWindow), this));
 			};
 			InitializeComponent();
-			UpdateProcessingProgress(-1);
 			CustomToolbar.MouseDown += TopMenuBar_MouseDown;
 			Uri imagePath = new Uri("Logo_Watermark.png", UriKind.Relative);
 			BackgroundImage.ImageSource = new BitmapImage(imagePath);
 			Provider = Startup.GetProvider();
 			DesktopService = Provider.GetService<IDesktopService>();
+			AppSettings = Provider.GetService<IAppSettings>();
+			FileSystem = Provider.GetService<IFileSystem>();
+			SubscribeToServiceEvents();
 			Startup.DesktopServicesAreReady();
+			DesktopService.RunStartup();
 		}
 		#region Toolbar Dragging
+
+		private void SubscribeToServiceEvents()
+		{
+			DesktopService.OnCloseApplication += (sender, _) =>
+			{
+				this.Dispatcher.Invoke(() =>
+				{
+					this.CloseApplication();
+				});
+			};
+			DesktopService.OnStatusUpdated += (sender, status) =>
+			{
+				this.Dispatcher.Invoke(() =>
+				{
+					this.LatestStatusUpdate.Text = status;
+				});
+			};
+			DesktopService.OnProgessUpdated += (sender, percent) =>
+			{
+				this.Dispatcher.Invoke(() =>
+				{
+					ProcessingProgress.Visibility = (percent < 0 || percent > 100) ? Visibility.Collapsed : Visibility.Visible;
+					ProcessingProgress.Value = percent;
+				});
+			};
+			DesktopService.OnChangeContentPage += (sender, page) =>
+			{
+				this.Dispatcher.Invoke(() =>
+				{
+					if (CurrentPageControl != null)
+					{
+						MainContentContainer.Children.Remove(CurrentPageControl);
+					}
+					CurrentPageControl = page switch
+					{
+						Constants.ContentPage.Loading => new PageLoading(),
+						Constants.ContentPage.CreateBlueprint => new PageCreateBlueprint(DesktopService, FileSystem),
+						Constants.ContentPage.ViewBlueprintList => new PageBlueprintList(DesktopService, AppSettings),
+						Constants.ContentPage.ViewBlueprint => new PageBlueprint(DesktopService),
+						Constants.ContentPage.FirstStartup => new FirstStartup(Provider),
+						_ => new PageError() { Message = "Sorry! We didn't finish setting up this component yet." },
+					};
+					MainContentContainer.Children.Add(CurrentPageControl);
+				});
+			};
+		}
 
 		private void TopMenuBar_MouseDown(object sender, MouseButtonEventArgs e)
 		{
@@ -45,98 +91,22 @@ namespace DevCompanion.Desktop
 			}
 			this.DragMove();
 		}
-
-
 		#endregion
 
-		public void UpdateStatus(string status)
+		private void CloseApplication()
 		{
-			this.Dispatcher.Invoke(() =>
-			{
-				this.LatestStatusUpdate.Text = status;
-			});
-		}
-
-		/// <summary>
-		/// set with a range from 0 to 100 to display.
-		/// Set to -1 to hide.
-		/// </summary>
-		/// <param name="percent"></param>
-		public void UpdateProcessingProgress(int percent)
-		{
-			this.Dispatcher.Invoke(() =>
-			{
-				ProcessingProgress.Visibility = (percent < 0 || percent > 100) ? Visibility.Collapsed : Visibility.Visible;
-				ProcessingProgress.Value = percent;
-			});
-		}
-
-		public event EventHandler<Constants.ContentPage> OnChangeContentPage;
-		public event EventHandler<IBlueprint> OnLoadedBlueprint;
-
-		public void ChangeContentPage(Constants.ContentPage page)
-		{
-			lock (LockPageSwap)
-			{
-				if (page == CurrentPage) { return; }
-				CurrentPage = page;
-				if (CurrentPageControl != null)
-				{
-					MainContentContainer.Children.Remove(CurrentPageControl);
-				}
-				switch (page)
-				{
-					case Constants.ContentPage.Blueprint:
-						CurrentPageControl = new PageBlueprint(Provider, ActiveBlueprint);
-						break;
-					case Constants.ContentPage.FirstStartup:
-					default:
-						CurrentPage = Constants.ContentPage.FirstStartup;
-						CurrentPageControl = new FirstStartup(Provider);
-						break;
-				}
-				MainContentContainer.Children.Add(CurrentPageControl);
-			}
-			OnChangeContentPage?.Invoke(this, CurrentPage);
-		}
-
-		public void LoadBlueprint(IBlueprint blueprint)
-		{
-			ActiveBlueprint = blueprint;
-			ChangeContentPage(Constants.ContentPage.Blueprint);
-			OnLoadedBlueprint?.Invoke(this, ActiveBlueprint);
-		}
-
-		public void OpenBlueprint()
-		{
-
-		}
-
-		public void SaveBlueprint()
-		{
-
-		}
-
-		public void SyncBlueprint()
-		{
-
-		}
-
-		public void CloseApplication()
-		{
-			DesktopService?.StopDesktopServices();
 			Startup.CloseServices();
 			this.Close();
 		}
 
-		private IBlueprint ActiveBlueprint { get; set; }
-		private object LockPageSwap { get; } = new object();
-		private Constants.ContentPage CurrentPage { get; set; }
 		private UserControl CurrentPageControl { get; set; }
 		private ServiceProvider Provider { get; set; }
 		private IDesktopService DesktopService { get; set; }
+		private IFileSystem FileSystem { get; set; }
+		private IAppSettings AppSettings { get; set; }
 
 		#region IDisposable
+		private bool disposedValue;
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)

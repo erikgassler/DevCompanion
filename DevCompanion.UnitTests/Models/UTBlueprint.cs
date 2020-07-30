@@ -14,10 +14,24 @@ namespace DevCompanion.BuildTests.Models
 		/// - converting JSON back to a new blureprint object
 		/// - verify no data was lost in conversion
 		/// </summary>
-		[Fact]
-		public void VerifyBlueprintLifeCycle()
+		[Theory]
+		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.AzureAppConfig)]
+		[InlineData(Constants.UnitFlag.Deployment, Constants.UnitStage.Processor, Constants.UnitType.AzureAppConfig)]
+		[InlineData(Constants.UnitFlag.Documentation, Constants.UnitStage.Processor, Constants.UnitType.AzureAppConfig)]
+		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Validator, Constants.UnitType.AzureAppConfig)]
+		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.AzureKeyVault)]
+		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.Blueprint)]
+		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.CommandPromptScript)]
+		[InlineData(Constants.UnitFlag.Configuration, Constants.UnitStage.Processor, Constants.UnitType.Workflow)]
+		public void VerifyBlueprintLifeCycle(Constants.UnitFlag flag, Constants.UnitStage stage, Constants.UnitType type)
 		{
 			IBlueprint createdBlueprint = new Blueprint();
+			createdBlueprint.Units.Add(new BaseBlueprintUnit()
+			{
+				UnitFlag = flag,
+				UnitState = stage,
+				UnitType = type
+			});
 			Guid createdId = createdBlueprint.Id;
 			Assert.NotEqual(Guid.Empty, createdId);
 			createdBlueprint.Name = "Some fantastical name!";
@@ -25,6 +39,9 @@ namespace DevCompanion.BuildTests.Models
 			IBlueprint loadedBlueprint = JsonConvert.DeserializeObject<Blueprint>(json);
 			Assert.Equal(createdId, loadedBlueprint.Id);
 			Assert.Equal(createdBlueprint.Name, loadedBlueprint.Name);
+			Assert.Equal(flag, loadedBlueprint.Units[0].UnitFlag);
+			Assert.Equal(stage, loadedBlueprint.Units[0].UnitState);
+			Assert.Equal(type, loadedBlueprint.Units[0].UnitType);
 		}
 	}
 }

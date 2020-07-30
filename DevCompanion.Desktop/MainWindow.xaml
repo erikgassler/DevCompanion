@@ -13,8 +13,8 @@
 		WindowStyle="None" Icon="/Logo_64.png"
 		ResizeMode="CanResizeWithGrip"
 		SizeToContent="Manual"
-		MinWidth="500"
-		MinHeight="300"
+		MinWidth="800"
+		MinHeight="500"
 	>
 	<Window.Background>
 		<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -44,7 +44,7 @@
 			<ScrollViewer.Background>
 				<ImageBrush x:Name="BackgroundImage" TileMode="None" AlignmentX="Right" AlignmentY="Bottom" Stretch="None" Opacity="0.7" Viewbox="0,0,1.4,1.15" Viewport="0,0,1,1" />
 			</ScrollViewer.Background>
-			<DockPanel x:Name="MainContentContainer" />
+			<DockPanel x:Name="MainContentContainer" Margin="10" />
 		</ScrollViewer>
 	</DockPanel>
 </Window>
