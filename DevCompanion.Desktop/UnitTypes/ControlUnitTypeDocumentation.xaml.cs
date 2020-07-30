@@ -51,7 +51,6 @@ namespace DevCompanion.Desktop.UnitTypes
 
 		private void SaveContentFromControl()
 		{
-			if (SkipSave) { SkipSave = false; return; }
 			FlowDocument flowDocument = ControlMainContent.Document;
 			using StringWriter stringwriter = new StringWriter();
 			using System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(stringwriter);
