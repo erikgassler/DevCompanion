@@ -84,17 +84,18 @@ namespace DevCompanion.Desktop.ContentPages
 		{
 			ControlBaseUnit control = unit.UnitType switch
 			{
-				Constants.UnitType.AzureAppConfig => null,
-				Constants.UnitType.AzureKeyVault => null,
-				Constants.UnitType.Blueprint => null,
-				Constants.UnitType.CommandPromptScript => null,
+				Constants.UnitType.AzureAppConfig => new ControlUnitTypeAzureAppConfig(unit),
+				Constants.UnitType.AzureKeyVault => new ControlUnitTypeAzureKeyVault(unit),
+				Constants.UnitType.Blueprint => new ControlUnitTypeBlueprint(unit),
+				Constants.UnitType.CommandPromptScript => new ControlUnitTypeCommandPrompt(unit),
 				Constants.UnitType.Documentation => new ControlUnitTypeDocumentation(unit),
-				Constants.UnitType.EnvironmentVariable => new ControlUnitTypeDocumentation(unit),
-				Constants.UnitType.PowerShellScript => null,
-				Constants.UnitType.Workflow => null,
+				Constants.UnitType.EnvironmentVariable => new ControlUnitTypeEnvironmentVariable(unit),
+				Constants.UnitType.PowerShellScript => new ControlUnitTypePowerShellScript(unit),
+				Constants.UnitType.Workflow => new ControlUnitTypeWorkflow(unit),
 				_ => null
 			};
 			if(control == null) { return false; }
+			control.Margin = new Thickness(0, 0, 0, 10);
 			BlueprintUnits.Children.Add(control);
 			return true;
 		}

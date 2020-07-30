@@ -14,9 +14,9 @@ namespace DevCompanion.Desktop.Components
 			InitializeComponent();
 			this.DataContext = this;
 			this.OpenEditor.Click += OpenEditor_Click;
-			this.CancelUpdate.Click += CancelUpdate_Click;
-			this.SaveChange.Click += SaveChange_Click;
-			this.GearIcon.Click += OpenEditor_Click;
+			this.ButtonCancelUpdate.Click += CancelUpdate_Click;
+			this.ButtonSaveChange.Click += SaveChange_Click;
+			this.ButtonEdit.Click += OpenEditor_Click;
 			DisableEditing();
 		}
 
@@ -30,19 +30,19 @@ namespace DevCompanion.Desktop.Components
 		private void EnableEditing()
 		{
 			OpenEditor.Visibility = Visibility.Collapsed;
-			GearIcon.Visibility = Visibility.Collapsed;
+			ButtonEdit.Visibility = Visibility.Collapsed;
 			TextValue.Visibility = Visibility.Visible;
-			CancelUpdate.Visibility = Visibility.Visible;
-			SaveChange.Visibility = Visibility.Visible;
+			ButtonCancelUpdate.Visibility = Visibility.Visible;
+			ButtonSaveChange.Visibility = Visibility.Visible;
 		}
 
 		private void DisableEditing()
 		{
 			TextValue.Visibility = Visibility.Collapsed;
-			CancelUpdate.Visibility = Visibility.Collapsed;
-			SaveChange.Visibility = Visibility.Collapsed;
+			ButtonCancelUpdate.Visibility = Visibility.Collapsed;
+			ButtonSaveChange.Visibility = Visibility.Collapsed;
 			OpenEditor.Visibility = Visibility.Visible;
-			GearIcon.Visibility = Visibility.Visible;
+			ButtonEdit.Visibility = Visibility.Visible;
 		}
 
 		private void SaveChange_Click(object sender, RoutedEventArgs e)

@@ -1,14 +1,16 @@
-﻿<local:ControlBaseUnit
-	x:Class="DevCompanion.Desktop.UnitTypes.ControlUnitTypeAzureAppConfig"
+﻿<local:ControlBaseUnit 
+	x:Class="DevCompanion.Desktop.UnitTypes.ControlUnitTypeWorkflow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:local="clr-namespace:DevCompanion.Desktop.UnitTypes"
 	mc:Ignorable="d" 
-	d:DesignHeight="250" d:DesignWidth="800">
+	d:DesignHeight="50" d:DesignWidth="800">
 	<DockPanel LastChildFill="True">
 		<local:ControlUnitToolbar x:Name="ControlToolbar" DockPanel.Dock="Top" />
-		<DockPanel />
+		<DockPanel DockPanel.Dock="Top">
+			<TextBlock>Placeholder: Workflow!</TextBlock>
+		</DockPanel>
 	</DockPanel>
 </local:ControlBaseUnit>

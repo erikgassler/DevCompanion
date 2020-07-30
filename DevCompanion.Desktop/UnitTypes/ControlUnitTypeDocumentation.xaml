@@ -11,6 +11,36 @@
 	<DockPanel LastChildFill="True">
 		<local:ControlUnitToolbar x:Name="ControlToolbar" DockPanel.Dock="Top" />
 		<DockPanel DockPanel.Dock="Top">
+			<ToolBarTray DockPanel.Dock="Top">
+				<ToolBar x:Name="ControlMainContentToolbar">
+					<Button Command="ApplicationCommands.Cut" ToolTip="Cut" Content="✂️" />
+					<Button Command="ApplicationCommands.Copy" ToolTip="Copy" Content="📋" />
+					<Button Command="ApplicationCommands.Paste" ToolTip="Paste" Content="📄" />
+					<Button Command="ApplicationCommands.Undo" ToolTip="Undo" Content="↪" />
+					<Button Command="ApplicationCommands.Redo" ToolTip="Redo" Content="↩" />
+
+					<Button Command="EditingCommands.ToggleBold" ToolTip="Bold">
+						<TextBlock FontWeight="Bold">B</TextBlock>
+					</Button>
+					<Button Command="EditingCommands.ToggleItalic" ToolTip="Italic">
+						<TextBlock FontStyle="Italic" FontWeight="Bold">I</TextBlock>
+					</Button>
+					<Button Command="EditingCommands.ToggleUnderline" ToolTip="Underline">
+						<TextBlock TextDecorations="Underline" FontWeight="Bold">U</TextBlock>
+					</Button>
+					<Button Command="EditingCommands.IncreaseFontSize" ToolTip="Grow Font" Content="GF" />
+					<Button Command="EditingCommands.DecreaseFontSize" ToolTip="Shrink Font" Content="SF" />
+
+					<Button Command="EditingCommands.ToggleBullets" ToolTip="Bullets" Content="⚫" />
+					<Button Command="EditingCommands.ToggleNumbering" ToolTip="Numbering" Content="1." />
+					<Button Command="EditingCommands.AlignLeft" ToolTip="Align Left" Content="AL" />
+					<Button Command="EditingCommands.AlignCenter" ToolTip="Align Center" Content="AC" />
+					<Button Command="EditingCommands.AlignRight" ToolTip="Align Right" Content="AR" />
+					<Button Command="EditingCommands.AlignJustify" ToolTip="Align Justify" Content="AJ" />
+					<Button Command="EditingCommands.IncreaseIndentation" ToolTip="Increase Indent" Content="II" />
+					<Button Command="EditingCommands.DecreaseIndentation" ToolTip="Decrease Indent" Content="DI" />
+				</ToolBar>
+			</ToolBarTray>
 			<RichTextBox x:Name="ControlMainContent" AcceptsReturn="True" AcceptsTab="True" AllowDrop="True" AutoWordSelection="True" Focusable="True" />
 		</DockPanel>
 	</DockPanel>

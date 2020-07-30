@@ -21,6 +21,7 @@ namespace DevCompanion.Desktop.UnitTypes
 		private void SetupControl()
 		{
 			ControlToolbar.OnClickDelete += ControlToolbar_OnClickDelete;
+			ControlMainContent.SetValue(Paragraph.LineHeightProperty, 0.4);
 			LoadContentIntoControl();
 			ControlMainContent.TextChanged += ControlMainContent_TextChanged;
 		}

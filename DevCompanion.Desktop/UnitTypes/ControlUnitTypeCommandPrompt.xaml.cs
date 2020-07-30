@@ -3,14 +3,15 @@
 namespace DevCompanion.Desktop.UnitTypes
 {
 	/// <summary>
-	/// Interaction logic for ControlUnitTypeAzureAppConfig.xaml
+	/// Interaction logic for ControlUnitTypeCommandPrompt.xaml
 	/// </summary>
-	public partial class ControlUnitTypeAzureAppConfig : ControlBaseUnit
+	public partial class ControlUnitTypeCommandPrompt : ControlBaseUnit
 	{
-		public ControlUnitTypeAzureAppConfig(IBlueprintUnit unit)
+		public ControlUnitTypeCommandPrompt(IBlueprintUnit unit)
 		{
 			BlueprintUnit = unit;
 			InitializeComponent();
+			SetupControl();
 		}
 
 		private void SetupControl()
@@ -23,6 +24,6 @@ namespace DevCompanion.Desktop.UnitTypes
 			// TODO - Remove control from list of units
 		}
 
-		IBlueprintUnit BlueprintUnit;
+		private IBlueprintUnit BlueprintUnit { get; }
 	}
 }
