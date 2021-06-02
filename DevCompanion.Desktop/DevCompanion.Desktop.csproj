@@ -1,42 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <Authors>Erik Gassler</Authors>
-    <Product>Dev Companion</Product>
-    <PackageIcon>Logo_300.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/erikgassler/DevCompanion</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/erikgassler/DevCompanion</RepositoryUrl>
-    <RepositoryType>GitHub</RepositoryType>
-    <Platforms>AnyCPU;x64</Platforms>
-    <PackageId>Dev Companion</PackageId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+		<UseWPF>true</UseWPF>
+		<Authors>Erik Gassler</Authors>
+		<Product>Dev Companion</Product>
+		<PackageIcon>Logo_300.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/erikgassler/DevCompanion</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/erikgassler/DevCompanion</RepositoryUrl>
+		<RepositoryType>GitHub</RepositoryType>
+		<Platforms>AnyCPU;x64</Platforms>
+		<PackageId>Dev Companion</PackageId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Logo_64.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Logo_64.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DevCompanion.Service\DevCompanion.Service.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DevCompanion.Service\DevCompanion.Service.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Logo_64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Logo_64.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Logo_300.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Logo_Watermark.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Logo_300.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Logo_Watermark.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
